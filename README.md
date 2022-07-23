@@ -1,3 +1,5 @@
 # Kot-Pawel.github.io
 
-Test
+This is a test project to create website using html, css and js
+
+Let's try commiting from a branch a change to readme
