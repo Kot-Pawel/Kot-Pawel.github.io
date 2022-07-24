@@ -4,23 +4,29 @@
     <meta charset="UTF-8">
     <title>The hammer calculator</title>
     <link rel="stylesheet" href="stylesMaster.css">
+    <script type="text/javascript" src="scriptsMaster.js"></script>
 </head>
 
 
 <body>
 
-<input type="text" id="lname" name="lname" value="Enter something"><br><br>
-<input type="submit" value="Kliknij mnie!">
-<br>
-<button onclick="window.location.href='index.html';">
-      Wróc na stronę główną
-</button>
-
-<br/>
-
 <a href="index.html" class="button">Wróć na stronę główną</a>
 
-<br> Test 123... Wróć na stronę główną.
+<br>
+    Number of attacks <input type="number" id="numberOfAttacks" placeholder="Enter number of attacks"><br>
+    Damage per attack <input type="number" id="dmgPerAttack" placeholder="Enter damage per attack"><br>
+    Rend <input type="number" id="rend" placeholder="Enter rend value"><br>
+    Target's save <input type="number" id="targetSave" placeholder="Enter save value of the target"><div id="saveRollProbability"></div>
+    Target's ward save <input type="number" id="targetWardSave" placeholder="Enter ward save value of the target"><br><div id="wardSaveRollProbability"></div>
+    Attacker to hit value <input type="number" id="attackerToHit" placeholder="Enter to hit of attacker"><br>
+    Mortal 6's to hit <select id="mortal6Hit" name="mortal6Hit"><option value="yes">Yes</option><option value="no" selected>No</option></select><br>
+    Attacker to wound value <input type="number" id="attackerToWound" placeholder="Enter to wound of attacker"><br>
+    Mortal 6's to wound <select id="mortal6Wound" name="mortal6Wound"><option value="yes">Yes</option><option value="no" selected>No</option></select><br>
+    Mortal 6's to wound and sequence continues <select id="mortal6WoundContinues" name="mortal6WoundContinues"><option value="yes">Yes</option><option value="no" selected>No</option></select><br>
+    <br><br>
+    <button onclick="saveRollProbability()" id="calculateDmg">Calculate damage</button>
+    <br>
+    <p id="calculatedDmg">Calculated damage will appear here</p>
 
 
 </body>
