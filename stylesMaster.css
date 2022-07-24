@@ -1,4 +1,41 @@
+body {
+    background-color: floralwhite;
+}
+
+
+.myStyle {
+    text-align: center;
+    
+}
+
+
+.myStyle2 {
+    text-align:right;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-size:small;
+    color:white;
+}
+
+.button {
+    background-color: #1c87c9;
+    border: none;
+    color: white;
+    padding: 20px 34px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 20px;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+
+
 p {
     font-family: Arial, sans-serif;
-    font-size: 14px;
+    font-size: 16px;
+    color:blue;
 }
+
+
