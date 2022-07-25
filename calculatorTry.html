@@ -5,6 +5,7 @@
     <title>The hammer calculator</title>
     <link rel="stylesheet" href="stylesMaster.css">
     <script type="text/javascript" src="scriptsMaster.js"></script>
+    <script type="text/javascript" src="test.js"></script>
 </head>
 
 
@@ -13,6 +14,7 @@
 <a href="index.html" class="button">Wróć na stronę główną</a>
 
 <br>
+    <button onclick="inputTestDataIntoVariables()" id="insertTestData">Insert test data</button><br><br>
     Number of attacks <input type="number" id="numberOfAttacks" placeholder="Enter number of attacks"><br>
     Damage per attack <input type="number" id="dmgPerAttack" placeholder="Enter damage per attack"><br>
     Rend <input type="number" id="rend" placeholder="Enter rend value"><br>
@@ -28,8 +30,20 @@
     Mortal 6's to wound <select id="mortal6Wound" name="mortal6Wound"><option value="yes">Yes</option><option value="no" selected>No</option></select><br>
     Mortal 6's to wound and sequence continues <select id="mortal6WoundContinues" name="mortal6WoundContinues"><option value="yes">Yes</option><option value="no" selected>No</option></select><br>
     <br><br>
-    <button onclick="saveRollProbability()" id="calculateDmg">Calculate damage</button>
+    <button onclick="saveRollProbability()" id="saveRollProbability">Calculate damage</button>
     <br>
+    Hits <input type="number" id="hits" disabled><br>
+    Misses <input type="number" id="misses" disabled><br>
+    Mortal 6's to hit (dmg) <input type="number" id="mortal6hit" disabled><br>
+    Wounds <input type="number" id="wounds" disabled><br>
+    Mortal 6's to Wound <input type="number" id="mortal6wounds" disabled><br>
+    Mortal 6's to wound and sequence continues <input type="number" id="mortal6WoundsSeqCont" disabled>
+    <br><br>
+    Saved <input type="number" id="saved" disabled><br>
+    Damage output <input type="number" id="dmgOutput" disabled><br>
+    Ward saved <input type="number" id="wardSaved" disabled><br>
+    Damage inflicted <input type="number" id="dmgInflicted" disabled><br>
+
     <p id="calculatedDmg">Calculated damage will appear here</p>
 
 
