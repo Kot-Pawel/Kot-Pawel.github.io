@@ -16,8 +16,9 @@ function wardSaveRollProbability() {
 
 function toHitProbability() {
     var attackerToHit = document.getElementById("attackerToHit").value;
-    var toHitPobability = (6 - Number(attackerToHit) + 1) / 6;
+    var toHitProbability = (6 - Number(attackerToHit) + 1) / 6;
     document.getElementById("toHitProbability").innerHTML = toHitProbability;
+    localStorage.setItem("toHitProbability", toHitProbability); //save toHitProbability to session storage
     toWoundProbability();
 }
 
@@ -27,13 +28,14 @@ function toWoundProbability() {
     var attackerToWound = document.getElementById("attackerToWound").value;
     var toWoundProbability = (6 - Number(attackerToWound) + 1) / 6;
     document.getElementById("toWoundProbability").innerHTML = "To wound probability" + toWoundProbability;
-    //hits();
+    hits();
 }
 
 
 function hits() {
     var numberOfAttacks = document.getElementById("numberOfAttacks").value;
-    var hits = Number(numberOfAttacks) * toHitPobability;
+    var toHitProbability = localStorage.getItem("toHitProbability"); //retrieve toHitProbability from session storage
+    var hits = Number(numberOfAttacks) * Number(toHitProbability);
     document.getElementById("hits").value = hits;
 }
 
