@@ -6,7 +6,7 @@ function inputTestDataIntoVariables() {
     document.getElementById("targetSave").value = 3;
     document.getElementById("targetWardSave").value = 7;
     document.getElementById("attackerToHit").value = 4;
-    document.getElementById("mortal6Hit").value = "no";
+    document.getElementById("mortal6HitId").value = "no";
     document.getElementById("attackerToWound").value = 4;
     document.getElementById("mortal6Wound").value = "no";
     document.getElementById("mortal6WoundContinues").value = "no";

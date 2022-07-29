@@ -14,7 +14,7 @@
 <body>
 
 <a href="index.html" class="button">Wróć na stronę główną</a>
-    <button onclick="store()" id="store">Session store test</button><br><br>
+    <button onclick="selectDisplay()" id="store">Session store test</button><br><br>
 <br>
     <button onclick="inputTestDataIntoVariables()" id="insertTestData">Insert test data</button><br><br>
     <button onclick="clearTestData()" id="clearData">Clear data</button><br><br>
@@ -27,7 +27,7 @@
     <div id="wardSaveRollProbability"></div>
     Attacker to hit value <input type="number" id="attackerToHit" placeholder="Enter to hit of attacker">
     <div id="toHitProbability"></div>
-    Mortal 6's to hit <select id="mortal6Hit" name="mortal6Hit"><option value="yes">Yes</option><option value="no" selected>No</option></select><br>
+    Mortal 6's to hit <select id="mortal6HitId" name="mortal6HitName"><option value="yes">Yes</option><option value="no" selected>No</option></select><br>
     Attacker to wound value <input type="number" id="attackerToWound" placeholder="Enter to wound of attacker"><br>
     <div id="toWoundProbability"></div>
     Mortal 6's to wound <select id="mortal6Wound" name="mortal6Wound"><option value="yes">Yes</option><option value="no" selected>No</option></select><br>
@@ -37,7 +37,7 @@
     <br>
     Hits <input type="number" id="hits" disabled><br>
     Misses <input type="number" id="misses" disabled><br>
-    Mortal 6's to hit (dmg) <input type="number" id="mortal6hit" disabled><br>
+    Mortal 6's to hit (dmg) <input type="number" id="mortal6hitdmg" disabled><br>
     Wounds <input type="number" id="wounds" disabled><br>
     Mortal 6's to Wound <input type="number" id="mortal6wounds" disabled><br>
     Mortal 6's to wound and sequence continues <input type="number" id="mortal6WoundsSeqCont" disabled>
