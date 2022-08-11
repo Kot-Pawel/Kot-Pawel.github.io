@@ -1,5 +1,5 @@
 body {
-    background-color: floralwhite;
+    background-color: black;
 }
 
 
@@ -28,6 +28,11 @@ body {
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 4px 2px;
     cursor: pointer;
+}
+
+.calculator {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: white;
 }
 
 
