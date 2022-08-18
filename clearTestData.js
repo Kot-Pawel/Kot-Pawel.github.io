@@ -12,3 +12,22 @@ function clearTestData() {
     document.getElementById("mortal6WoundContinues").value = "no";
 
 }
+
+
+function clearDamageData() {
+
+    document.getElementById("hits").value = null;
+    document.getElementById("misses").value = null;
+    document.getElementById("mortal6hitdmg").value = null;
+    document.getElementById("wounds").value = null;
+    document.getElementById("mortal6wounds").value = null;
+    document.getElementById("mortal6WoundsSeqCont").value = null;
+    document.getElementById("attackerToHit").value = null;
+    document.getElementById("saved").value = null;
+    document.getElementById("dmgOutput").value = null;
+    document.getElementById("wardSaved").value = null;
+    document.getElementById("dmgInflicted").value = null;
+
+}
+
+

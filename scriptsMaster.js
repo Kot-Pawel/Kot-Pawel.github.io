@@ -2,15 +2,13 @@ function saveRollProbability() {
     var rend = document.getElementById("rend").value;
     var targetSave = document.getElementById("targetSave").value;
     var saveRollProbability = (6 - (Number(targetSave) + Number(rend)) + 1) / 6;
-    //document.getElementById("saveRollProbability").innerHTML = "Save probability " + saveRollProbability;
-    sessionStorage.setItem("saveRollProbability", saveRollProbability);
+    sessionStorage.setItem("saveRollProbability", saveRollProbability); //session storage allows other functions to use this value
     wardSaveRollProbability();
 }
 
 function wardSaveRollProbability() {
     var targetWardSave = document.getElementById("targetWardSave").value;
     var wardSaveRollProbability = ((6 - Number(targetWardSave) + 1)) / 6;
-    //document.getElementById("wardSaveRollProbability").innerHTML = "Ward save probability " + wardSaveRollProbability;
     sessionStorage.setItem("wardSaveRollProbability", wardSaveRollProbability);
     toHitProbability();
 }
@@ -19,8 +17,7 @@ function wardSaveRollProbability() {
 function toHitProbability() {
     var attackerToHit = document.getElementById("attackerToHit").value;
     var toHitProbability = (6 - Number(attackerToHit) + 1) / 6;
-    //document.getElementById("toHitProbability").innerHTML = toHitProbability;
-    sessionStorage.setItem("toHitProbability", toHitProbability); //save toHitProbability to session storage
+    sessionStorage.setItem("toHitProbability", toHitProbability); 
     toWoundProbability();
 }
 
@@ -29,7 +26,6 @@ function toHitProbability() {
 function toWoundProbability() {
     var attackerToWound = document.getElementById("attackerToWound").value;
     var toWoundProbability = (6 - Number(attackerToWound) + 1) / 6;
-    //document.getElementById("toWoundProbability").innerHTML = "To wound probability" + toWoundProbability;
     sessionStorage.setItem("toWoundProbability", toWoundProbability);
     hits();
 }
@@ -53,9 +49,9 @@ function misses() {
 }
 
 function mortal6hitdmg() {
-    var mortal6HitIdS = document.getElementById("mortal6HitId");
-    var mortal6HitIdv = mortal6HitIdS.options[mortal6HitIdS.selectedIndex].value;
-    console.log(mortal6HitIdv);
+    var mortal6HitIdS = document.getElementById("mortal6HitId"); //first you need a var to get all data of a dropdown input
+    var mortal6HitIdv = mortal6HitIdS.options[mortal6HitIdS.selectedIndex].value; //then you need a var to get selected value out of that dropdown
+    
     
     if (mortal6HitIdv == "yes")
     {
@@ -77,18 +73,102 @@ function mortal6hitdmg() {
 
 
 function mortal6wounds() {
+    var mortal6WoundIdS = document.getElementById("mortal6WoundId");
+    var mortal6WoundIdv = mortal6WoundIdS.options[mortal6WoundIdS.selectedIndex].value;
 
-    var mortal6wounds = 0;
+    if (mortal6WoundIdv == "yes")
+    {
+        var mortal6wounds = Math.Round((Number(sessionStorage.getItem("hits")) - Number(sessionStorage.getItem("mortal6hitdmg"))) * Number(1/6));
+    }
+
+    if (mortal6WoundIdv == "no")
+    {
+        var mortal6wounds = 0;
+    }
+
     document.getElementById("mortal6wounds").value = mortal6wounds;
     sessionStorage.setItem("mortal6wounds", mortal6wounds);
-    wounds();
-}
 
+    wounds();
+
+}
 
 function wounds() {
-
+    mortal6WoundContinuesId
     var wounds = Math.round((Number(sessionStorage.getItem("hits")) - Number(sessionStorage.getItem("mortal6hitdmg"))) * Number(sessionStorage.getItem("toWoundProbability"))) - Number(sessionStorage.getItem("mortal6wounds"));
     document.getElementById("wounds").value = wounds;
-
+    sessionStorage.setItem("wounds", wounds);
+    mortal6WoundsSeqCont();
 }
 
+function mortal6WoundsSeqCont() {
+    var mortal6WoundContinuesIdS = document.getElementById("mortal6WoundContinuesId");
+    var mortal6WoundContinuesIdv = mortal6WoundContinuesIdS.options[mortal6WoundContinuesIdS.selectedIndex].value;
+
+    if (mortal6WoundContinuesIdv=="yes")  {
+
+        var mortal6WoundsSeqCont = Math.round((Number(sessionStorage.getItem("hits")) - Number(sessionStorage.getItem("mortal6hitdmg"))) * Number(1 / 6));
+
+    }
+
+    if (mortal6WoundContinuesIdv == "no") {
+
+        var mortal6WoundsSeqCont = 0;
+
+    }
+
+    document.getElementById("mortal6WoundsSeqCont").value = mortal6WoundsSeqCont;
+    sessionStorage.setItem("mortal6WoundsSeqCont", mortal6WoundsSeqCont);
+
+    saved();
+}
+
+
+function saved() {
+
+    var saved = Math.round((Number(sessionStorage.getItem("wounds")) - Number(sessionStorage.getItem("mortal6wounds"))) * Number(sessionStorage.getItem("saveRollProbability")));
+    document.getElementById("saved").value = saved;
+    sessionStorage.setItem("saved", saved);
+    dmgOutput()
+}
+
+function dmgOutput() {
+
+    var dmg = document.getElementById("dmgPerAttack").value;
+    var wounds = Number(sessionStorage.getItem("wounds"));
+    var saved = Number(sessionStorage.getItem("saved"));
+    var mortal6hitdmg = Number(sessionStorage.getItem("mortal6hitdmg"));
+    var mortal6wounds = Number(sessionStorage.getItem("mortal6wounds"));
+    var mortal6WoundsSeqCont = Number(sessionStorage.getItem("savemortal6WoundsSeqContd"));
+
+    var dmgOutput = dmg * (wounds * saved) + mortal6hitdmg + mortal6wounds + mortal6WoundsSeqCont;
+    document.getElementById("dmgOutput").value = dmgOutput;
+    sessionStorage.setItem("dmgOutput", dmgOutput);
+
+    wardSaved()
+}
+
+function wardSaved() {
+
+    var targetWardSave = document.getElementById("targetWardSave").value;
+
+    if (targetWardSave == 7) {
+        var wardSaved = 0;
+    }
+
+    if (targetWardSave != 7) {
+        var wardSaved = Math.round(Number(sessionStorage.getItem("dmgOutput")) * Number(sessionStorage.getItem("wardSaveRollProbability")));
+    }
+
+    document.getElementById("wardSaved").value = wardSaved;
+    sessionStorage.setItem("wardSaved", wardSaved);
+
+    dmgInflicted();
+}
+
+function dmgInflicted() {
+
+    var dmgInflicted = Number(sessionStorage.getItem("dmgOutput")) - Number(sessionStorage.getItem("wardSaved"));
+    document.getElementById("dmgInflicted").value = dmgInflicted;
+    
+}

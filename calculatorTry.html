@@ -13,7 +13,7 @@
 
 <body>
 
-<a href="index.html" class="button">Wróć na stronę główną</a>
+<a href="about:blank" class="button">Le button test</a>
     <button onclick="selectDisplay()" id="store">Session store test</button><br><br>
 <br>
     <div class = "calculator">
@@ -23,14 +23,15 @@
     Damage per attack <input type="number" id="dmgPerAttack" placeholder="Enter damage per attack"><br>
     Rend <input type="number" id="rend" placeholder="Enter rend value"><br>
     Target's save <input type="number" id="targetSave" placeholder="Enter save value of the target"><br>
-    Target's ward save <input type="number" id="targetWardSave" placeholder="Enter ward save value of the target"><br>
+    Target's ward save (7 for no ward save) <input type="number" id="targetWardSave" placeholder="Enter ward save value of the target"><br>
     Attacker to hit value <input type="number" id="attackerToHit" placeholder="Enter to hit of attacker"><br>
     Mortal 6's to hit <select id="mortal6HitId" name="mortal6HitName"><option value="yes">Yes</option><option value="no" selected>No</option></select><br>
     Attacker to wound value <input type="number" id="attackerToWound" placeholder="Enter to wound of attacker"><br>
-    Mortal 6's to wound <select id="mortal6Wound" name="mortal6Wound"><option value="yes">Yes</option><option value="no" selected>No</option></select><br>
-    Mortal 6's to wound and sequence continues <select id="mortal6WoundContinues" name="mortal6WoundContinues"><option value="yes">Yes</option><option value="no" selected>No</option></select><br>
+    Mortal 6's to wound <select id="mortal6WoundId" name="mortal6WoundName"><option value="yes">Yes</option><option value="no" selected>No</option></select><br>
+    Mortal 6's to wound and sequence continues <select id="mortal6WoundContinuesId" name="mortal6WoundContinuesName"><option value="yes">Yes</option><option value="no" selected>No</option></select><br>
     <br><br>
-    <button onclick="saveRollProbability()" id="saveRollProbability">Calculate damage</button>
+    <button onclick="saveRollProbability()" id="saveRollProbability">Calculate damage</button><br>
+    <button onclick="clearDamageData()" id="clearDamage">Clear damage data</button> 
     <br>
     Hits <input type="number" id="hits" disabled><br>
     Misses <input type="number" id="misses" disabled><br>
