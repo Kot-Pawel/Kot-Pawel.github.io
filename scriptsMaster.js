@@ -35,8 +35,17 @@ function hits() {
     var numberOfAttacks = document.getElementById("numberOfAttacks").value;
     var toHitProbability = sessionStorage.getItem("toHitProbability"); //retrieve toHitProbability from session storage
     var hits = Math.round(Number(numberOfAttacks) * Number(toHitProbability));
+    
+    var rerollHitsS = document.getElementById("rerollHitsId");
+    var rerollHitsV = rerollHitsS.options[rerollHitsS.selectedIndex].value;
+    if (rerollHitsV == "yes") {
+        var additionalHits = (Number(numberOfAttacks) - Number(hits)) * Number(toHitProbability);
+        var hits = Math.round(Number(hits) + Number(additionalHits));
+    }
+
     sessionStorage.setItem("hits", hits);
     document.getElementById("hits").value = hits;
+
     misses();
 }
 
@@ -94,8 +103,18 @@ function mortal6wounds() {
 }
 
 function wounds() {
-    mortal6WoundContinuesId
-    var wounds = Math.round((Number(sessionStorage.getItem("hits")) - Number(sessionStorage.getItem("mortal6hitdmg"))) * Number(sessionStorage.getItem("toWoundProbability"))) - Number(sessionStorage.getItem("mortal6wounds"));
+
+    var toWoundProbability = Number(sessionStorage.getItem("toWoundProbability"));
+    var possibleWounds = Number(sessionStorage.getItem("hits")) - Number(sessionStorage.getItem("mortal6hitdmg")) - Number(sessionStorage.getItem("mortal6wounds"));
+    var wounds = Math.round((Number(sessionStorage.getItem("hits")) - Number(sessionStorage.getItem("mortal6hitdmg"))) * toWoundProbability) - Number(sessionStorage.getItem("mortal6wounds"));
+
+    var rerollWoundsS = document.getElementById("rerollWoundsId");
+    var rerollWoundsV = rerollWoundsS.options[rerollWoundsS.selectedIndex].value;
+    if (rerollWoundsV == "yes") {
+        var additionalWounds = (Number(possibleWounds) - Number(wounds)) * Number(toWoundProbability);
+        var wounds = Math.round(Number(wounds) + Number(additionalWounds));
+    }
+
     document.getElementById("wounds").value = wounds;
     sessionStorage.setItem("wounds", wounds);
     mortal6WoundsSeqCont();

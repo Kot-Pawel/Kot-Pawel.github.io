@@ -1,4 +1,4 @@
-function clearTestData() {
+function clearInputs() {
 
     document.getElementById("numberOfAttacks").value = null;
     document.getElementById("dmgPerAttack").value = null;
@@ -22,7 +22,6 @@ function clearDamageData() {
     document.getElementById("wounds").value = null;
     document.getElementById("mortal6wounds").value = null;
     document.getElementById("mortal6WoundsSeqCont").value = null;
-    document.getElementById("attackerToHit").value = null;
     document.getElementById("saved").value = null;
     document.getElementById("dmgOutput").value = null;
     document.getElementById("wardSaved").value = null;
