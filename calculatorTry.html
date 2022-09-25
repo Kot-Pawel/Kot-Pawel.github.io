@@ -20,31 +20,33 @@
     <div class = "calculator">
     <button class="button-37" role="button" onclick="inputTestDataIntoVariables()" id="insertTestData">Insert test data</button><br><br>
     <button onclick="clearInputs()" id="clearData">Clear data</button><br><br>
-    Number of attacks <input type="number" id="numberOfAttacks" placeholder="Enter number of attacks"><br>
-    Damage per attack <input type="number" id="dmgPerAttack" placeholder="Enter damage per attack"><br>
-    Rend <input type="number" id="rend" placeholder="Enter rend value"><br>
-    Target's save <input type="number" id="targetSave" placeholder="Enter save value of the target"><br>
-    Target's ward save (7 for no ward save) <input type="number" id="targetWardSave" placeholder="Enter ward save value of the target"><br>
-    Attacker to hit value <input type="number" id="attackerToHit" placeholder="Enter to hit of attacker"> Reroll hits? <select id="rerollHitsId" name="rerollHitsName"><option value="yes">Yes</option><option value="no" selected>No</option></select><br>
+   
+        <label for="numberOfAttacks">Number of attacks</label><input class="inputFromUser" type="number" id="numberOfAttacks" placeholder="Enter number of attacks"><br>
+    
+ 
+    Damage per attack <input class="inputFromUser" type="number" id="dmgPerAttack" placeholder="Enter damage per attack"><br>
+    Rend <input class="inputFromUser" type="number" id="rend" placeholder="Enter rend value"><br>
+    Target's save <input class="inputFromUser" type="number" id="targetSave" placeholder="Enter save value of the target"><br>
+    Target's ward save (7 for no ward save) <input class="inputFromUser" type="number" id="targetWardSave" placeholder="Enter ward save value of the target"><br>
+    Attacker to hit value <input class="inputFromUser" type="number" id="attackerToHit" placeholder="Enter to hit of attacker"> Reroll hits? <select id="rerollHitsId" name="rerollHitsName"><option value="yes">Yes</option><option value="no" selected>No</option></select><br>
     Mortal 6's to hit <select id="mortal6HitId" name="mortal6HitName"><option value="yes">Yes</option><option value="no" selected>No</option></select><br>
-    Attacker to wound value <input type="number" id="attackerToWound" placeholder="Enter to wound of attacker"> Reroll wounds? <select id="rerollWoundsId" name="rerollWoundsName"><option value="yes">Yes</option><option value="no" selected>No</option></select><br>
+    Attacker to wound value <input class="inputFromUser" type="number" id="attackerToWound" placeholder="Enter to wound of attacker"> Reroll wounds? <select id="rerollWoundsId" name="rerollWoundsName"><option value="yes">Yes</option><option value="no" selected>No</option></select><br>
     Mortal 6's to wound <select id="mortal6WoundId" name="mortal6WoundName"><option value="yes">Yes</option><option value="no" selected>No</option></select><br>
     Mortal 6's to wound and sequence continues <select id="mortal6WoundContinuesId" name="mortal6WoundContinuesName"><option value="yes">Yes</option><option value="no" selected>No</option></select><br>
     <br><br>
     <button onclick="saveRollProbability()" id="saveRollProbability">Calculate damage</button><br>
     <button onclick="clearDamageData()" id="clearDamage">Clear damage data</button> 
     <br>
-    Hits <input type="number" id="hits" disabled><br>
-    Misses <input type="number" id="misses" disabled><br>
-    Mortal 6's to hit (dmg) <input type="number" id="mortal6hitdmg" disabled><br>
-    Wounds <input type="number" id="wounds" disabled><br>
-    Mortal 6's to Wound <input type="number" id="mortal6wounds" disabled><br>
-    Mortal 6's to wound and sequence continues <input type="number" id="mortal6WoundsSeqCont" disabled>
-    <br><br>
-    Saved <input type="number" id="saved" disabled><br>
-    Damage output <input type="number" id="dmgOutput" disabled><br>
-    Ward saved <input type="number" id="wardSaved" disabled><br>
-    Damage inflicted <input type="number" id="dmgInflicted" disabled><br>
+    Hits <input class="outputData" type="number" id="hits" disabled><br>
+    Misses <input class="outputData" type="number" id="misses" disabled><br>
+    Mortal 6's to hit (dmg) <input class="outputData" type="number" id="mortal6hitdmg" disabled><br>
+    Wounds <input class="outputData" type="number" id="wounds" disabled><br>
+    Mortal 6's to Wound <input class="outputData" type="number" id="mortal6wounds" disabled><br>
+    Mortal 6's to wound and sequence continues <input class="outputData" type="number" id="mortal6WoundsSeqCont" disabled><br>
+    Saved <input class="outputData" type="number" id="saved" disabled><br>
+    Damage output <input class="outputData" type="number" id="dmgOutput" disabled><br>
+    Ward saved <input class="outputData" type="number" id="wardSaved" disabled><br>
+    Damage inflicted <input class="outputData" type="number" id="dmgInflicted" disabled><br>
 
 
     </div>
