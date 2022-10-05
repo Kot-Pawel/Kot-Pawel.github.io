@@ -56,13 +56,25 @@ label {
 }
 
 .inputFromUser {
-    width: 100%;
+    width: 50%;
     box-sizing: border-box;
     padding: 12px 20px;
     border: 3px solid #ccc;
     -webkit-transition: 0.5s;
     transition: 0.5s;
     outline: none;
+    /**background-image: url('https: //cdn-icons-png.flaticon.com/512/803/803805.png'); I like idea of having custom image in input field, but this works like shit**/
+}
+
+.inputFromUserTest {
+    width: 50%;
+    box-sizing: border-box;
+    padding: 12px 20px;
+    border: 3px solid #ccc;
+    -webkit-transition: 0.5s;
+    transition: 0.5s;
+    outline: none;
+    
     /**background-image: url('https: //cdn-icons-png.flaticon.com/512/803/803805.png'); I like idea of having custom image in input field, but this works like shit**/
 }
 

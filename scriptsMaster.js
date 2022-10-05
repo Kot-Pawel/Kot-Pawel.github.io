@@ -1,3 +1,7 @@
+function calculateDamage() {
+    saveRollProbability();
+}
+
 function saveRollProbability() {
     var rend = document.getElementById("rend").value;
     var targetSave = document.getElementById("targetSave").value;
@@ -148,7 +152,7 @@ function saved() {
     var saved = Math.round((Number(sessionStorage.getItem("wounds")) - Number(sessionStorage.getItem("mortal6wounds"))) * Number(sessionStorage.getItem("saveRollProbability")));
     document.getElementById("saved").value = saved;
     sessionStorage.setItem("saved", saved);
-    dmgOutput()
+    dmgOutput();
 }
 
 function dmgOutput() {
@@ -158,13 +162,13 @@ function dmgOutput() {
     var saved = Number(sessionStorage.getItem("saved"));
     var mortal6hitdmg = Number(sessionStorage.getItem("mortal6hitdmg"));
     var mortal6wounds = Number(sessionStorage.getItem("mortal6wounds"));
-    var mortal6WoundsSeqCont = Number(sessionStorage.getItem("savemortal6WoundsSeqContd"));
+    var mortal6WoundsSeqCont = Number(sessionStorage.getItem("mortal6WoundsSeqCont"));
 
-    var dmgOutput = dmg * (wounds * saved) + mortal6hitdmg + mortal6wounds + mortal6WoundsSeqCont;
+    var dmgOutput = dmg * (wounds - saved) + mortal6hitdmg + mortal6wounds + mortal6WoundsSeqCont;
     document.getElementById("dmgOutput").value = dmgOutput;
     sessionStorage.setItem("dmgOutput", dmgOutput);
 
-    wardSaved()
+    wardSaved();
 }
 
 function wardSaved() {
