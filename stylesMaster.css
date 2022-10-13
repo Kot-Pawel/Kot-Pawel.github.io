@@ -2,6 +2,16 @@ body {
     background-color: #262E38;
 }
 
+
+.baner {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: white;
+    font-size: xx-large;
+    text-align: center;
+}
+
+
+
 .calculator {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     color: white;
