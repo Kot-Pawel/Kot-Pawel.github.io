@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>The hammer score sheet</title>
+    <link rel="stylesheet" href="stylesMaster.css">
+    <link rel="stylesheet" href="buttons.css">
+    <script type="text/javascript" src="scoreSheet.js"></script>
+</head>
+<body onload="addOneRowP1(), addOneRowP2()">
+
+    <div class="default">
+
+        Player one
+
+        <table id="player1" style="text-align:center" align="center" valign:"top">
+            <thead>
+                <tr>
+                    <th>Round</th>
+                    <th>Strategy</th>
+                    <th>Objectives</th>
+                    <th>Victory Points</th>
+                </tr>
+            </thead>
+        </table>
+
+
+
+        <button onclick="addOneRowP1()" id="addOneRowP1">Add one row</button><br><br>
+
+
+
+        Player two
+
+        <table id="player2" style="text-align:center" align="center" valign:"top">
+            <thead>
+                <tr>
+                    <th>Round</th>
+                    <th>Strategy</th>
+                    <th>Objectives</th>
+                    <th>Victory Points</th>
+                </tr>
+            </thead>
+        </table>
+
+        <button onclick="addOneRowP2()" id="addOneRowP2">Add one row</button><br><br>
+
+
+    </div>
+
+</body>
+</html>
