@@ -1,8 +1,3 @@
-body {
-    background-color: #262E38;
-}
-
-
 .baner {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     color: white;
@@ -12,10 +7,11 @@ body {
 
 
 
-.default {
+.pawel123 {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     color: white;
     margin: auto;
+    background-color: #262E38;
     padding-left: 20%;
     padding-right: 20%;
 }
