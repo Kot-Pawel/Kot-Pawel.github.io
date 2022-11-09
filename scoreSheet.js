@@ -5,6 +5,7 @@ function addOneRowP1() {
         var currentRow = document.getElementById("player1").rows.length;
         var roundNumberP1 = currentRow - 1;
         var roundNumberCell = "<tr><td>R" + roundNumberP1 + "</td></tr >";
+        var dropdown = "<select name='StrategyP1'><option value='GainingMomentum'>Gaining momentum</option><option value='EyeForAnEye'>Eye for an eye</option><option value='DesecrateTheirLands'>Desecrate their lands</option><option value='ThisOnesMine'>This one's mine</option><option value='HeadToHead'>Head-to-head</option><option value='Outmusclce'>Outmuscle</option><option value='AgainstTheOdds' selected>Against the odds</option><option value='BargeThroughEnemyLines'>Barge through enemy lines</option></select>";
 
     if (roundNumberP1 >= 6) {
         alert("Max number of rounds reached");
@@ -16,7 +17,7 @@ function addOneRowP1() {
         newCell.innerHTML = roundNumberCell;
 
         newCell = newRow.insertCell();
-        newCell.innerHTML = "<tr><td><select name='StrategyP1'><option value='GainingMomentum'>Gaining momentum</option><option value='EyeForAnEye'>Eye for an eye</option><option value='DesecrateTheirLands'>Desecrate their lands</option><option value='ThisOnesMine'>This one's mine</option><option value='HeadToHead'>Head-to-head</option><option value='Outmusclce'>Outmuscle</option><option value='AgainstTheOdds' selected>Against the odds</option><option value='BargeThroughEnemyLines'>Barge through enemy lines</option></select></td></tr>";
+        newCell.innerHTML = "<tr><td>" + dropdown + "</td></tr>";
 
         var newCell = newRow.insertCell();
         newCell.innerHTML = "<tr><td><input type='number' name='objectivesNumberP1' id='objectivesNumberP1Id" + roundNumberP1 + "' onchange='calculateVP_Player1()'></td></tr>";
