@@ -9,14 +9,14 @@
     <script type="text/javascript" src="scoreSheet.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
 </head>
-<body onload="addOneRowP1(), addOneRowP2()">
+<body onload="tryAddingRow('player1'), tryAddingRow('player2')">
 
     <div class="container">
 
-        
+
         <p>Scoring rules</p>
         <label for="pointsPerObjective">Points per objective</label>
-        <input type="number" id="pointsPerObjectiveId" name="pointsPerObjectiveN"/>
+        <input type="number" id="pointsPerObjectiveId" name="pointsPerObjectiveN" />
         <br>
 
     </div>
@@ -39,9 +39,9 @@
         </table>
 
         <p id="totalScoreP1">Total score</p>
-        
 
-        <button onclick="addOneRowP1()" id="addOneRowP1">Add one row</button><br><br>
+
+        <button onclick="tryAddingRow('player1')" id="addOneRowP1">Add one row</button><br><br>
 
     </div>
     <div class="container">
@@ -62,13 +62,13 @@
 
         <p id="totalScoreP2">Total score</p>
 
-        <button onclick="addOneRowP2()" id="addOneRowP2">Add one row</button><br><br>
-
-
-
-
+        <button onclick="tryAddingRow('player2')" id="addOneRowP2">Add one row</button><br><br>
 
     </div>
+
+
+
+
 
 </body>
 </html>

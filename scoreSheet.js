@@ -1,75 +1,53 @@
-function addOneRowP1() {
+function tryAddingRow(playerContext) {
 
-        var newRow = document.getElementById('player1').insertRow();
+    var roundNumber = document.getElementById(playerContext).rows.length; //gets round number from table length
 
-        var currentRow = document.getElementById("player1").rows.length;
-        var roundNumberP1 = currentRow - 1;
-        var roundNumberCell = "<tr><td>R" + roundNumberP1 + "</td></tr >";
-    var dropdown = "<select name='StrategyP1'><option value='GainingMomentum'>Gaining momentum</option><option value='EyeForAnEye'>Eye for an eye</option><option value='DesecrateTheirLands'>Desecrate their lands</option><option value='ThisOnesMine'>This one's mine</option><option value='HeadToHead'>Head-to-head</option><option value='Outmusclce'>Outmuscle</option><option value='AgainstTheOdds' selected>Against the odds</option><option value='BargeThroughEnemyLines'>Barge through enemy lines</option><option value='Faction'>Faction strategy</option></select>";
-
-    if (roundNumberP1 >= 6) {
-        alert("Max number of rounds reached");
+    if (roundNumber >= 6) {
+        maxNumberOfRows();
     }
 
-    if (roundNumberP1 < 6) {
-
-        newCell = newRow.insertCell();
-        newCell.innerHTML = roundNumberCell;
-
-        newCell = newRow.insertCell();
-        newCell.innerHTML = "<tr><td>" + dropdown + "</td></tr>";
-
-        newCell = newRow.insertCell();
-        newCell.innerHTML = "<input type='checkbox' id='strategyDoneP1Id" + roundNumberP1 + "'> ";
-
-        newCell = newRow.insertCell();
-        newCell.innerHTML = "<tr><td><input type='number' name='objectivesNumberP1' id='objectivesNumberP1Id" + roundNumberP1 + "' onchange='calculateVP_Player1()'></td></tr>";
-
-        newCell = newRow.insertCell();
-        newCell.innerHTML = "<tr><td><input type='number' name='victoryPointsP1' id='victoryPointsP1id" + roundNumberP1 + "'></td></tr>";
-
-        sessionStorage.setItem("roundNumberP1", roundNumberP1);
-        
+    if (roundNumber < 6) {
+        addOneRow(roundNumber, playerContext);
     }
 
 }
 
-function addOneRowP2() {
+function addOneRow(roundNumber, playerContext) {
 
-    var newRow = document.getElementById('player2').insertRow();
+    var newRow = document.getElementById(playerContext).insertRow();
+    
+    if (playerContext == "player1") { var playerContextShort = "P1"; }
+    if (playerContext == "player2") { var playerContextShort = "P2"; }
 
-    var currentRow = document.getElementById("player2").rows.length;
-    var roundNumberP2 = currentRow - 1;
-    var roundNumberCell = "<tr><td>R" + roundNumberP2 + "</td></tr >";
+    var roundNumberCell = "<tr><td>R" + roundNumber + "</td></tr >";
+    var dropdown = "<select name='Strategy" + playerContextShort + "'><option value='GainingMomentum'>Gaining momentum</option><option value='EyeForAnEye'>Eye for an eye</option><option value='DesecrateTheirLands'>Desecrate their lands</option><option value='ThisOnesMine'>This one's mine</option><option value='HeadToHead'>Head-to-head</option><option value='Outmusclce'>Outmuscle</option><option value='AgainstTheOdds' selected>Against the odds</option><option value='BargeThroughEnemyLines'>Barge through enemy lines</option><option value='Faction'>Faction strategy</option></select>";
 
-    if (roundNumberP2 >= 6) {
-        alert("Max number of rounds reached");
-    }
+    var newCell = newRow.insertCell();
+    newCell.innerHTML = roundNumberCell; //contains td and tr in var above
 
-    if (roundNumberP2 < 6) {
+    newCell = newRow.insertCell();
+    newCell.innerHTML = "<tr><td>" + dropdown + "</td></tr>";
 
-        newCell = newRow.insertCell();
-        newCell.innerHTML = roundNumberCell;
+    newCell = newRow.insertCell();
+    newCell.innerHTML = "<tr><td><input type='checkbox' id='strategyDone" + playerContextShort + "Id" + roundNumber + "'><tr><td>";
 
-        newCell = newRow.insertCell();
-        newCell.innerHTML = "<tr><td><select name='StrategyP2'><option value='GainingMomentum'>Gaining momentum</option><option value='EyeForAnEye'>Eye for an eye</option><option value='DesecrateTheirLands'>Desecrate their lands</option><option value='ThisOnesMine'>This one's mine</option><option value='HeadToHead'>Head-to-head</option><option value='Outmusclce'>Outmuscle</option><option value='AgainstTheOdds' selected>Against the odds</option><option value='BargeThroughEnemyLines'>Barge through enemy lines</option><option value='Faction'>Faction strategy</option></select></td></tr>";
+    newCell = newRow.insertCell();
+    newCell.innerHTML = "<tr><td><input type='number' name='objectivesNumber" + playerContextShort + "' id='objectivesNumber" + playerContextShort + "Id" + roundNumber + "'" + "onchange='calculateVP_" + playerContext + "()'></td></tr>"; 
 
-        newCell = newRow.insertCell();
-        newCell.innerHTML = "<input type='checkbox' id='strategyDoneP2Id" + roundNumberP2 + "'> ";
+    newCell = newRow.insertCell();
+    newCell.innerHTML = "<tr><td><input type='number' name='victoryPoints" + playerContextShort + "' id='victoryPoints" + playerContextShort + "id" + roundNumber + "'></td></tr>";
 
-        newCell = newRow.insertCell();
-        newCell.innerHTML = "<tr><td><input type='number' name='objectivesNumberP2' id='objectivesNumberP2Id" + roundNumberP2 + "' onchange='calculateVP_Player2()'></td></tr>";
+    if (playerContext == "player1") { sessionStorage.setItem("roundNumberP1", roundNumber); }
+    if (playerContext == "player2") { sessionStorage.setItem("roundNumberP2", roundNumber); }
 
-        newCell = newRow.insertCell();
-        newCell.innerHTML = "<tr><td><input type='number' name='victoryPointsP2' id='victoryPointsP2id" + roundNumberP2 + "'></td></tr>";
-
-        sessionStorage.setItem("roundNumberP2", roundNumberP2);
-    }
-       
 
 }
 
-function calculateVP_Player1() {
+function maxNumberOfRows() {
+    alert("Max number of rounds reached");
+}
+
+function calculateVP_player1() {
 
     var roundNumberP1 = Number(sessionStorage.getItem("roundNumberP1"));
     var pointsPerObjective = Number(document.getElementById("pointsPerObjectiveId").value);
@@ -154,7 +132,7 @@ function calculateVP_Player1() {
 
 }
 
-function calculateVP_Player2() {
+function calculateVP_player2() {
 
     var roundNumberP2 = Number(sessionStorage.getItem("roundNumberP2"));
     var pointsPerObjective = Number(document.getElementById("pointsPerObjectiveId").value);
@@ -257,3 +235,5 @@ function nieRozumiemThis() {
 
 }
  */
+
+
