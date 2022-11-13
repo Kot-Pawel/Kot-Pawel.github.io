@@ -3,14 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>The hammer score sheet</title>
+    <title>tests</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
     <script type="text/javascript" src="storage.js"></script>
     <script type="text/javascript" src="scoreSheet.js"></script>
+    <script type="text/javascript" src="tableExperiment.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
 </head>
-<body onload="tryAddingRow('player1'), tryAddingRow('player2'), getFromLocalStorage()">
+<body onload="tryAddingRow('player1')">
 
     <div class="container">
         <p>Scoring rules</p>
@@ -37,7 +38,7 @@
                 <tr class="data">
                     <td class="inputValue">R1</td>
                     <td><select name="StrategyP1" id="strategyP1Id1" class="inputValue"><option value="GainingMomentum">Gaining momentum</option><option value="EyeForAnEye">Eye for an eye</option><option value="DesecrateTheirLands">Desecrate their lands</option><option value="ThisOnesMine">This one' s mine</option><option value="HeadToHead">Head-to-head</option><option value="Outmusclce">Outmuscle</option><option value="AgainstTheOdds" selected="">Against the odds</option><option value="BargeThroughEnemyLines">Barge through enemy lines</option><option value="Faction">Faction strategy</option></select></td>
-                    <td><input type="checkbox" id="strategyDoneP1Id1" onchange="calculateVP_player1()" class="inputValue"></td>
+                    <td><input type="checkbox" id="strategyDoneP1Id1" class="inputValue"></td>
                     <td><input type="number" name="objectivesNumberP1" id="objectivesNumberP1Id1" onchange="calculateVP_player1()" class="inputValue"></td>
                     <td><input type="number" name="victoryPointsP1" id="victoryPointsP1id1" class="inputValue"></td>
                 </tr>
@@ -46,46 +47,14 @@
 
         <p id="totalScoreP1">Total score</p>
 
-
         <button onclick="tryAddingRow('player1')" id="addOneRowP1">Add one row</button><br><br>
 
     </div>
-    <div class="container">
 
-        <p>Player two</p>
-
-        <table id="player2" style="text-align:center" align="center" valign:"top">
-            <thead>
-                <tr>
-                    <th>Round</th>
-                    <th>Strategy</th>
-                    <th>Done</th>
-                    <th>Objectives</th>
-                    <th>Victory Points</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr class="data">
-                    <td class="inputValue">R1</td>
-                    <td><select name="StrategyP2" id="strategyP2Id1" class="inputValue"><option value="GainingMomentum">Gaining momentum</option><option value="EyeForAnEye">Eye for an eye</option><option value="DesecrateTheirLands">Desecrate their lands</option><option value="ThisOnesMine">This one' s mine</option><option value="HeadToHead">Head-to-head</option><option value="Outmusclce">Outmuscle</option><option value="AgainstTheOdds" selected="">Against the odds</option><option value="BargeThroughEnemyLines">Barge through enemy lines</option><option value="Faction">Faction strategy</option></select></td>
-                    <td><input type="checkbox" id="strategyDoneP2Id1" onchange="calculateVP_player2()" class="inputValue"></td>
-                    <td><input type="number" name="objectivesNumberP2" id="objectivesNumberP2Id1" onchange="calculateVP_player2()" class="inputValue"></td>
-                    <td><input type="number" name="victoryPointsP2" id="victoryPointsP2id1" class="inputValue"></td>
-                </tr>
-            </tbody>
-        </table>
-
-        <p id="totalScoreP2">Total score</p>
-
-        <button onclick="tryAddingRow('player2')" id="addOneRowP2">Add one row</button><br><br>
-
-    </div>
-
-    <div class="container">
-        <br><br>
-        <button onclick="clearLocalStorage()" id="clearData">Clear local storage</button>
-
-    </div>
+    <br><br>
+    <button id="submit">Test!</button><br />
+    <button onclick="start()" id="whatever">whatever!</button><br />
+    <button id="convert-table">convert table!</button>
 
 </body>
 </html>

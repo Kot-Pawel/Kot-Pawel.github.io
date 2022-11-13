@@ -1,3 +1,11 @@
+function setRoundNumber(playerContext) {
+
+    var roundNumber = document.getElementById(playerContext).rows.length;
+    if (playerContext == "player1") { sessionStorage.setItem("roundNumberP1", roundNumber); }
+    if (playerContext == "player2") { sessionStorage.setItem("roundNumberP2", roundNumber); }
+
+}
+
 function tryAddingRow(playerContext) {
 
     var roundNumber = document.getElementById(playerContext).rows.length; //gets round number from table length
@@ -9,7 +17,7 @@ function tryAddingRow(playerContext) {
     if (roundNumber < 6) {
         addOneRow(roundNumber, playerContext);
     }
-
+   
 }
 
 function addOneRow(roundNumber, playerContext) {
@@ -19,8 +27,8 @@ function addOneRow(roundNumber, playerContext) {
     if (playerContext == "player1") { var playerContextShort = "P1"; }
     if (playerContext == "player2") { var playerContextShort = "P2"; }
 
-    var roundNumberCell = "<tr><td>R" + roundNumber + "</td></tr >";
-    var dropdown = "<select name='Strategy" + playerContextShort + "' id='strategyId''><option value='GainingMomentum'>Gaining momentum</option><option value='EyeForAnEye'>Eye for an eye</option><option value='DesecrateTheirLands'>Desecrate their lands</option><option value='ThisOnesMine'>This one's mine</option><option value='HeadToHead'>Head-to-head</option><option value='Outmusclce'>Outmuscle</option><option value='AgainstTheOdds' selected>Against the odds</option><option value='BargeThroughEnemyLines'>Barge through enemy lines</option><option value='Faction'>Faction strategy</option></select>";
+    var roundNumberCell = "<tr><td class='inputValue'>R" + roundNumber + "</td></tr>";
+    var dropdown = "<select name='Strategy" + playerContextShort + "' id='strategyId" + playerContextShort + "Id" + roundNumber + "' class='inputValue'><option value='GainingMomentum'>Gaining momentum</option><option value='EyeForAnEye'>Eye for an eye</option><option value='DesecrateTheirLands'>Desecrate their lands</option><option value='ThisOnesMine'>This one's mine</option><option value='HeadToHead'>Head-to-head</option><option value='Outmusclce'>Outmuscle</option><option value='AgainstTheOdds' selected>Against the odds</option><option value='BargeThroughEnemyLines'>Barge through enemy lines</option><option value='Faction'>Faction strategy</option></select>";
 
     var newCell = newRow.insertCell();
     newCell.innerHTML = roundNumberCell; //contains td and tr in var above
@@ -29,13 +37,15 @@ function addOneRow(roundNumber, playerContext) {
     newCell.innerHTML = "<tr><td>" + dropdown + "</td></tr>";
 
     newCell = newRow.insertCell();
-    newCell.innerHTML = "<tr><td><input type='checkbox' id='strategyDone" + playerContextShort + "Id" + roundNumber + "'><tr><td>";
+    newCell.innerHTML = "<tr><td><input type='checkbox' id='strategyDone" + playerContextShort + "Id" + roundNumber + "' onchange='calculateVP_" + playerContext + "()' class='inputValue'><tr><td>";
 
     newCell = newRow.insertCell();
-    newCell.innerHTML = "<tr><td><input type='number' name='objectivesNumber" + playerContextShort + "' id='objectivesNumber" + playerContextShort + "Id" + roundNumber + "'" + "onchange='calculateVP_" + playerContext + "()'></td></tr>"; 
+    newCell.innerHTML = "<tr><td><input type='number' name='objectivesNumber" + playerContextShort + "' id='objectivesNumber" + playerContextShort + "Id" + roundNumber + "'" + "onchange='calculateVP_" + playerContext + "()' class='inputValue'></td></tr>"; 
 
     newCell = newRow.insertCell();
-    newCell.innerHTML = "<tr><td><input type='number' name='victoryPoints" + playerContextShort + "' id='victoryPoints" + playerContextShort + "id" + roundNumber + "'></td></tr>";
+    newCell.innerHTML = "<tr><td><input type='number' name='victoryPoints" + playerContextShort + "' id='victoryPoints" + playerContextShort + "id" + roundNumber + "' class='inputValue'></td></tr>";
+
+    document.getElementById(playerContext).rows[roundNumber].classList.add("data");
 
     if (playerContext == "player1") { sessionStorage.setItem("roundNumberP1", roundNumber); }
     if (playerContext == "player2") { sessionStorage.setItem("roundNumberP2", roundNumber); }
@@ -217,17 +227,3 @@ function calculateVP_player2() {
 
     document.getElementById("totalScoreP2").innerHTML = "Total score " + totalScoreP2;
 }
-
-/***
-function nieRozumiemThis() {
-
-
-    console.log($("#pointsPerObjectiveId").attr("id"));
-    console.log(this.id);
-    console.log($(this).attr("id"));
-    console.log($(this).get(0).id);
-    console.log($(this)[0].id);
-
-
-}
- */
