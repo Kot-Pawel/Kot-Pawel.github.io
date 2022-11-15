@@ -10,7 +10,7 @@
     <script type="text/javascript" src="scoreSheet.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
 </head>
-<body onload="tryAddingRow('player1'), tryAddingRow('player2'), getFromLocalStorage()">
+<body onload="getFromLocalStorage()">    <!--, tryAddingRow('player1'), tryAddingRow('player2')-->
 
     <div class="container">
         <p>Scoring rules</p>
@@ -83,7 +83,12 @@
 
     <div class="container">
         <br><br>
-        <button onclick="clearLocalStorage()" id="clearData">Clear local storage</button>
+
+
+        <button onclick="saveRoundsToLocalStorage()" id="saveRoundsToLocalStorage">Save rounds data</button>
+
+        <br><br>
+        <button onclick="clearData()" id="clearData">Clear data</button>
 
     </div>
 

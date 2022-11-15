@@ -1,8 +1,16 @@
 function setRoundNumber(playerContext) {
 
-    var roundNumber = document.getElementById(playerContext).rows.length;
-    if (playerContext == "player1") { sessionStorage.setItem("roundNumberP1", roundNumber); }
-    if (playerContext == "player2") { sessionStorage.setItem("roundNumberP2", roundNumber); }
+    var roundNumber = Number(document.getElementById(playerContext).rows.length) - 1;
+    if (playerContext == "player1") {
+        sessionStorage.setItem("roundNumberP1", roundNumber);
+        localStorage.setItem("roundNumberP1", roundNumber);
+    }
+    if (playerContext == "player2") {
+        sessionStorage.setItem("roundNumberP2", roundNumber);
+        localStorage.setItem("roundNumberP2", roundNumber);
+    }
+
+    
 
 }
 
@@ -17,7 +25,7 @@ function tryAddingRow(playerContext) {
     if (roundNumber < 6) {
         addOneRow(roundNumber, playerContext);
     }
-   
+    
 }
 
 function addOneRow(roundNumber, playerContext) {
@@ -28,7 +36,7 @@ function addOneRow(roundNumber, playerContext) {
     if (playerContext == "player2") { var playerContextShort = "P2"; }
 
     var roundNumberCell = "<tr><td class='inputValue'>R" + roundNumber + "</td></tr>";
-    var dropdown = "<select name='Strategy" + playerContextShort + "' id='strategyId" + playerContextShort + "Id" + roundNumber + "' class='inputValue'><option value='GainingMomentum'>Gaining momentum</option><option value='EyeForAnEye'>Eye for an eye</option><option value='DesecrateTheirLands'>Desecrate their lands</option><option value='ThisOnesMine'>This one's mine</option><option value='HeadToHead'>Head-to-head</option><option value='Outmusclce'>Outmuscle</option><option value='AgainstTheOdds' selected>Against the odds</option><option value='BargeThroughEnemyLines'>Barge through enemy lines</option><option value='Faction'>Faction strategy</option></select>";
+    var dropdown = "<select name='Strategy" + playerContextShort + "' id='strategy" + playerContextShort + "Id" + roundNumber + "' class='inputValue'><option value='GainingMomentum'>Gaining momentum</option><option value='EyeForAnEye'>Eye for an eye</option><option value='DesecrateTheirLands'>Desecrate their lands</option><option value='ThisOnesMine'>This one's mine</option><option value='HeadToHead'>Head-to-head</option><option value='Outmusclce'>Outmuscle</option><option value='AgainstTheOdds' selected>Against the odds</option><option value='BargeThroughEnemyLines'>Barge through enemy lines</option><option value='Faction'>Faction strategy</option></select>";
 
     var newCell = newRow.insertCell();
     newCell.innerHTML = roundNumberCell; //contains td and tr in var above
@@ -47,9 +55,9 @@ function addOneRow(roundNumber, playerContext) {
 
     document.getElementById(playerContext).rows[roundNumber].classList.add("data");
 
-    if (playerContext == "player1") { sessionStorage.setItem("roundNumberP1", roundNumber); }
-    if (playerContext == "player2") { sessionStorage.setItem("roundNumberP2", roundNumber); }
-
+    setRoundNumber(playerContext);
+    
+    
 }
 
 function maxNumberOfRows() {
@@ -58,9 +66,10 @@ function maxNumberOfRows() {
 
 function calculateVP_player1() {
 
-    var roundNumberP1 = Number(sessionStorage.getItem("roundNumberP1"));
+    var roundNumberP1 = Number(document.getElementById("player1").rows.length) - 1;
     var pointsPerObjective = Number(document.getElementById("pointsPerObjectiveId").value);
     var totalScoreP1;
+    console.log(roundNumberP1);
 
     if (roundNumberP1 > 0) {
 
@@ -137,13 +146,15 @@ function calculateVP_player1() {
 
     }
 
-    document.getElementById("totalScoreP1").innerHTML = "Total score " + totalScoreP1;
+    var totalScoreP1Text = "Total score " + totalScoreP1;
+    document.getElementById("totalScoreP1").innerHTML = totalScoreP1Text;
+    localStorage.setItem("totalScoreP1", totalScoreP1Text);
 
 }
 
 function calculateVP_player2() {
 
-    var roundNumberP2 = Number(sessionStorage.getItem("roundNumberP2"));
+    var roundNumberP2 = Number(document.getElementById("player2").rows.length) - 1;
     var pointsPerObjective = Number(document.getElementById("pointsPerObjectiveId").value);
     var totalScoreP2;
     
@@ -225,5 +236,8 @@ function calculateVP_player2() {
 
     }
 
-    document.getElementById("totalScoreP2").innerHTML = "Total score " + totalScoreP2;
+    var totalScoreP2Text = "Total score " + totalScoreP2;
+    document.getElementById("totalScoreP2").innerHTML = totalScoreP2Text;
+    localStorage.setItem("totalScoreP2", totalScoreP2Text);
 }
+
