@@ -66,6 +66,10 @@ function maxNumberOfRows() {
 
 function calculateVP_player1() {
 
+    var isAutomaticCountOn = document.getElementById("automaticCount").checked;
+
+    if (isAutomaticCountOn == true) {
+
     var roundNumberP1 = Number(document.getElementById("player1").rows.length) - 1;
     var pointsPerObjective = Number(document.getElementById("pointsPerObjectiveId").value);
     var totalScoreP1;
@@ -149,95 +153,100 @@ function calculateVP_player1() {
     var totalScoreP1Text = "Total score " + totalScoreP1;
     document.getElementById("totalScoreP1").innerHTML = totalScoreP1Text;
     localStorage.setItem("totalScoreP1", totalScoreP1Text);
-
+    }
 }
 
 function calculateVP_player2() {
 
-    var roundNumberP2 = Number(document.getElementById("player2").rows.length) - 1;
-    var pointsPerObjective = Number(document.getElementById("pointsPerObjectiveId").value);
-    var totalScoreP2;
-    
+    var isAutomaticCountOn = document.getElementById("automaticCount").checked;
 
-    if (roundNumberP2 > 0) {
+    if (isAutomaticCountOn == true) {
 
-        var objectivesHeld = Number(document.getElementById("player2").rows[1].cells[3].children[0].value);
-        var victoryPoints = pointsPerObjective * objectivesHeld;
-        var isStrategyDone = document.getElementById("player2").rows[1].cells[2].children[0].checked;
+        var roundNumberP2 = Number(document.getElementById("player2").rows.length) - 1;
+        var pointsPerObjective = Number(document.getElementById("pointsPerObjectiveId").value);
+        var totalScoreP2;
 
-        if (isStrategyDone == true) {
-            var victoryPoints = victoryPoints + 2;
+
+        if (roundNumberP2 > 0) {
+
+            var objectivesHeld = Number(document.getElementById("player2").rows[1].cells[3].children[0].value);
+            var victoryPoints = pointsPerObjective * objectivesHeld;
+            var isStrategyDone = document.getElementById("player2").rows[1].cells[2].children[0].checked;
+
+            if (isStrategyDone == true) {
+                var victoryPoints = victoryPoints + 2;
+            }
+
+            document.getElementById("victoryPointsP2id1").value = victoryPoints;
+
+
+            totalScoreP2 = victoryPoints;
+
         }
 
-        document.getElementById("victoryPointsP2id1").value = victoryPoints;
+        if (roundNumberP2 > 1) {
 
+            var objectivesHeld = Number(document.getElementById("player2").rows[2].cells[3].children[0].value);
+            var victoryPoints = pointsPerObjective * objectivesHeld;
+            var isStrategyDone = document.getElementById("player2").rows[2].cells[2].children[0].checked;
 
-        totalScoreP2 = victoryPoints;
+            if (isStrategyDone == true) {
+                var victoryPoints = victoryPoints + 2;
+            }
 
-    }
+            document.getElementById("victoryPointsP2id2").value = victoryPoints;
+            totalScoreP2 = totalScoreP2 + victoryPoints;
 
-    if (roundNumberP2 > 1) {
-
-        var objectivesHeld = Number(document.getElementById("player2").rows[2].cells[3].children[0].value);
-        var victoryPoints = pointsPerObjective * objectivesHeld;
-        var isStrategyDone = document.getElementById("player2").rows[2].cells[2].children[0].checked;
-
-        if (isStrategyDone == true) {
-            var victoryPoints = victoryPoints + 2;
         }
 
-        document.getElementById("victoryPointsP2id2").value = victoryPoints;
-        totalScoreP2 = totalScoreP2 + victoryPoints;
+        if (roundNumberP2 > 2) {
 
-    }
+            var objectivesHeld = Number(document.getElementById("player2").rows[3].cells[3].children[0].value);
+            var victoryPoints = pointsPerObjective * objectivesHeld;
+            var isStrategyDone = document.getElementById("player2").rows[3].cells[2].children[0].checked;
 
-    if (roundNumberP2 > 2) {
+            if (isStrategyDone == true) {
+                var victoryPoints = victoryPoints + 2;
+            }
 
-        var objectivesHeld = Number(document.getElementById("player2").rows[3].cells[3].children[0].value);
-        var victoryPoints = pointsPerObjective * objectivesHeld;
-        var isStrategyDone = document.getElementById("player2").rows[3].cells[2].children[0].checked;
+            document.getElementById("victoryPointsP2id3").value = victoryPoints;
+            totalScoreP2 = totalScoreP2 + victoryPoints;
 
-        if (isStrategyDone == true) {
-            var victoryPoints = victoryPoints + 2;
         }
 
-        document.getElementById("victoryPointsP2id3").value = victoryPoints;
-        totalScoreP2 = totalScoreP2 + victoryPoints;
+        if (roundNumberP2 > 3) {
 
-    }
+            var objectivesHeld = Number(document.getElementById("player2").rows[4].cells[3].children[0].value);
+            var victoryPoints = pointsPerObjective * objectivesHeld;
+            var isStrategyDone = document.getElementById("player2").rows[4].cells[2].children[0].checked;
 
-    if (roundNumberP2 > 3) {
+            if (isStrategyDone == true) {
+                var victoryPoints = victoryPoints + 2;
+            }
 
-        var objectivesHeld = Number(document.getElementById("player2").rows[4].cells[3].children[0].value);
-        var victoryPoints = pointsPerObjective * objectivesHeld;
-        var isStrategyDone = document.getElementById("player2").rows[4].cells[2].children[0].checked;
+            document.getElementById("victoryPointsP2id4").value = victoryPoints;
+            totalScoreP2 = totalScoreP2 + victoryPoints;
 
-        if (isStrategyDone == true) {
-            var victoryPoints = victoryPoints + 2;
         }
 
-        document.getElementById("victoryPointsP2id4").value = victoryPoints;
-        totalScoreP2 = totalScoreP2 + victoryPoints;
+        if (roundNumberP2 > 4) {
 
-    }
+            var objectivesHeld = Number(document.getElementById("player2").rows[5].cells[3].children[0].value);
+            var victoryPoints = pointsPerObjective * objectivesHeld;
+            var isStrategyDone = document.getElementById("player2").rows[5].cells[2].children[0].checked;
 
-    if (roundNumberP2 > 4) {
+            if (isStrategyDone == true) {
+                var victoryPoints = victoryPoints + 2;
+            }
 
-        var objectivesHeld = Number(document.getElementById("player2").rows[5].cells[3].children[0].value);
-        var victoryPoints = pointsPerObjective * objectivesHeld;
-        var isStrategyDone = document.getElementById("player2").rows[5].cells[2].children[0].checked;
+            document.getElementById("victoryPointsP2id5").value = victoryPoints;
+            totalScoreP2 = totalScoreP2 + victoryPoints;
 
-        if (isStrategyDone == true) {
-            var victoryPoints = victoryPoints + 2;
         }
 
-        document.getElementById("victoryPointsP2id5").value = victoryPoints;
-        totalScoreP2 = totalScoreP2 + victoryPoints;
-
+        var totalScoreP2Text = "Total score " + totalScoreP2;
+        document.getElementById("totalScoreP2").innerHTML = totalScoreP2Text;
+        localStorage.setItem("totalScoreP2", totalScoreP2Text);
     }
-
-    var totalScoreP2Text = "Total score " + totalScoreP2;
-    document.getElementById("totalScoreP2").innerHTML = totalScoreP2Text;
-    localStorage.setItem("totalScoreP2", totalScoreP2Text);
 }
 
