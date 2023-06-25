@@ -8,9 +8,11 @@
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
     <script type="text/javascript" src="storage.js"></script>
     <script type="text/javascript" src="scoreSheet.js"></script>
+    <script type="text/javascript" src="getDataFromJson.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
 </head>
-<body onload="getFromLocalStorage()">    <!--, tryAddingRow('player1'), tryAddingRow('player2')-->
+<body onload="getFromLocalStorage()">
+    <!--, tryAddingRow('player1'), tryAddingRow('player2')-->
 
     <div class="container">
         <p>Scoring rules</p>
@@ -89,10 +91,13 @@
 
         <br><br>
         <button onclick="clearData()" id="clearData">Clear data</button>
-        <br/>
+        <br />
         <label for="automaticCount">Auto count points</label><input type="checkbox" id="automaticCount" onchange="automaticCount()" class="inputValue">
 
     </div>
 
+    <div>
+    <button onclick="fetchData()">Fetch Data</button>
+    </div>
 </body>
 </html>
