@@ -18,11 +18,3 @@ function fetchData() {
        });
     
 }
-
-
-function testing() {
-
-    document.getElementById('pointsPerObjectiveId').value = 7;
-    document.getElementById('strategyKey').value = "test";
-
-}

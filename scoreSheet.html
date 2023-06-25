@@ -9,9 +9,10 @@
     <script type="text/javascript" src="storage.js"></script>
     <script type="text/javascript" src="scoreSheet.js"></script>
     <script type="text/javascript" src="getDataFromJson.js"></script>
+    <script type="text/javascript" src=getStrategiesFromJson.js></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
 </head>
-<body onload="getFromLocalStorage()">
+<body onload="getFromLocalStorage(), fetchStrategiesData()">
     <!--, tryAddingRow('player1'), tryAddingRow('player2')-->
 
     <div class="container">
@@ -98,10 +99,8 @@
 
     <div>
         <button onclick="fetchData()">Fetch Data</button>
-        <label for="strategyKey">Strategy Key:</label>
-        <input type="text" id="strategyKey" readonly>
-        <label for="strategyName">Strategy Name:</label>
-        <input type="text" id="strategyName" readonly>
+        <label for="DynamicStrategyId">Dynamic strategy</label>        
+        <select name="DynamicStrategyName" id="DynamicStrategyId" class="inputValue"><option value="AMatterOfHonour">A matter of honour</option></select>
     </div>
 </body>
 </html>
