@@ -1,12 +1,5 @@
 {
   "strategy_key": "test_key",
   "strategy_name": "test_name",
-  "strategy1": "A matter of Honour",
-  "strategy2": "An Eye for an Eye",
-  "strategy3": "Cunning Manoeuvre",
-  "strategy4": "Desecrate their Lands",
-  "strategy5": "Gaining Momentum",
-  "strategy6": "Lead the Assault",
-  "strategy7": "This One's Mine!",
-  "strategy8": "United Offence"
+  "strategies": ["A matter of Honour", "An Eye for an Eye", "Cunning Manoeuvre", "Desecrate their Lands","Gaining Momentum","Lead the Assault","This One's Mine!","United Offence"]
 }

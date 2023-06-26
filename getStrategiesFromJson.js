@@ -4,17 +4,15 @@ function fetchStrategiesData() {
         .then(response => response.json())
         .then(data => {
                 
-            console.log(data);
+            var dropdown = "<select name='DynamicStrategyName' id='DynamicStrategyId' class='inputValue'>";
 
+            for (let i = 0; i < data.strategies.length; i++) {
+                const element = data.strategies[i];
+                var dropdown = dropdown + "<option value='Strategy" + [i] + "'>" + element + "</option>";
+            }
 
-            var strategy = data.strategy2;
-            var dropdown = "<select name='DynamicStrategyName' id='DynamicStrategyId' class='inputValue'><option value='ADifferentStrategy'>" + strategy + "</option></select>";
+            var dropdown = dropdown + "</select>";
             DynamicStrategyId.innerHTML = "<tr><td>" + dropdown + "</td></tr>";
-
-
-            //const strategyKeyInput = document.getElementById('strategyKey');
-            //strategyKeyInput.value = data.strategy_name;
-
 
         })
         .catch(error => {

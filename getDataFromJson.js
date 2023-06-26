@@ -4,10 +4,10 @@ function fetchData() {
         .then(response => response.json())
         .then(data => {
             
-            const strategyNameInput = document.getElementById('strategyName');
+            const strategyNameInput = document.getElementById('strategyNameId');
             strategyNameInput.value = data.strategy_name;
 
-            const strategyKeyInput = document.getElementById('strategyKey');
+            const strategyKeyInput = document.getElementById('strategyKeyId');
             strategyKeyInput.value = data.strategy_name;
                    
             console.log(data);
