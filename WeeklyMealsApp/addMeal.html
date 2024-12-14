@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add New Meal</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background-color: #f9f9f9;
+        }
+        #add-meal-container {
+            text-align: center;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 400px;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        input, textarea, button {
+            font-size: 1em;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #28a745;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+    <div id="add-meal-container">
+        <h1>Add a New Meal</h1>
+        <form id="add-meal-form">
+            <input type="text" id="meal-name" placeholder="Meal Name" required>
+            <textarea id="meal-ingredients" placeholder="Ingredients (comma-separated)" required></textarea>
+            <input type="number" id="meal-prep-time" placeholder="Preparation Time (minutes)" required>
+            <button type="submit">Add Meal</button>
+        </form>
+        <div id="message" style="margin-top: 10px;"></div>
+    </div>
+
+    <script>
+        document.getElementById('add-meal-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const name = document.getElementById('meal-name').value;
+            const ingredients = document.getElementById('meal-ingredients').value.split(',').map(ing => ing.trim());
+            const prepTime = parseInt(document.getElementById('meal-prep-time').value, 10);
+
+            const newMeal = { name, ingredients, prep_time: prepTime, category: 'dinner', diet: 'regular' };
+
+            fetch('/add-meal', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(newMeal)
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('message').textContent = data.message;
+                document.getElementById('add-meal-form').reset();
+            })
+            .catch(error => {
+                console.error('Error adding meal:', error);
+                document.getElementById('message').textContent = 'Failed to add meal. Please try again later.';
+            });
+        });
+    </script>
+</body>
+</html>

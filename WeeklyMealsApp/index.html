@@ -93,14 +93,9 @@
                         mealIngredients.classList.add('meal-ingredients');
                         mealIngredients.textContent = 'Ingredients: ' + randomMeal.ingredients.join(', ');
 
-                        const mealPrepTime = document.createElement('div');
-                        mealPrepTime.classList.add('meal-prep-time');
-                        mealPrepTime.textContent = 'Preparation Time: ' + randomMeal.prep_time + ' minutes';
-
                         dayDiv.appendChild(dayName);
                         dayDiv.appendChild(mealName);
                         dayDiv.appendChild(mealIngredients);
-                        dayDiv.appendChild(mealPrepTime);
 
                         weekPlanContainer.appendChild(dayDiv);
                     });

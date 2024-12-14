@@ -1,17 +1,15 @@
 [
     {
       "name": "Spaghetti Bolognese",
-      "ingredients": ["spaghetti", "ground beef", "tomato sauce", "onions", "garlic"],
-      "prep_time": 30,
-      "category": "dinner",
-      "diet": "regular"
+      "ingredients": ["spaghetti", "tofu", "tomato sauce", "onions", "garlic"]
     },
     {
       "name": "Vegetarian Stir Fry",
-      "ingredients": ["tofu", "broccoli", "carrots", "soy sauce", "ginger"],
-      "prep_time": 20,
-      "category": "dinner",
-      "diet": "vegetarian"
+      "ingredients": ["tofu", "broccoli", "carrots", "soy sauce", "ginger"]
+    }
+    {
+      "name": "Halloumi with rice",
+      "ingredients": ["halloumi", "whatever vegetables I can find", "rice"]
     }
   ]
   
