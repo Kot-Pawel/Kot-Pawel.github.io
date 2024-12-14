@@ -42,3 +42,14 @@ app.post('/add-meal', (req, res) => {
 app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);
 });
+
+//endpoint to retrieve meals
+app.get('/meals', (req, res) => {
+    try {
+        const meals = readDatabase();
+        res.json(meals);
+    } catch (error) {
+        console.error('Error reading the database:', error);
+        res.status(500).json({ message: 'Failed to load meals.' });
+    }
+});
