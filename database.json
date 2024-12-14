@@ -1,10 +1,30 @@
 [
   {
     "name": "Spaghetti Bolognese",
-    "ingredients": ["spaghetti", "ground beef", "tomato sauce", "onions", "garlic"]
+    "ingredients": [
+      "spaghetti",
+      "ground beef",
+      "tomato sauce",
+      "onions",
+      "garlic"
+    ]
   },
   {
     "name": "Vegetarian Stir Fry",
-    "ingredients": ["tofu", "broccoli", "carrots", "soy sauce", "ginger"]
+    "ingredients": [
+      "tofu",
+      "broccoli",
+      "carrots",
+      "soy sauce",
+      "ginger"
+    ]
+  },
+  {
+    "name": "Halloumi",
+    "ingredients": [
+      "Halloumi",
+      "some vegetables",
+      "rice"
+    ]
   }
 ]
