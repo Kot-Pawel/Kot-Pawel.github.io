@@ -27,7 +27,7 @@ function writeDatabase(data) {
 app.post('/add-meal', (req, res) => {
     const newMeal = req.body;
 
-    if (!newMeal.name || !newMeal.ingredients || !newMeal.prep_time) {
+    if (!newMeal.name || !newMeal.ingredients) {
         return res.status(400).json({ message: 'Invalid meal data.' });
     }
 
