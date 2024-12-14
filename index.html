@@ -67,7 +67,7 @@
 
     <script>
         document.getElementById('suggest-meals').addEventListener('click', function() {
-            fetch('database.json')
+            fetch('https://kot-pawel-github-io.onrender.com/meals')
                 .then(response => response.json())
                 .then(data => {
                     const daysOfWeek = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
