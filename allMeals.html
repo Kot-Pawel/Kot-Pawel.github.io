@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Meals</title>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="meal-container">
+        <h1>All Meals</h1>
+        <div id="meals-list">
+            <p>Loading meals...</p>
+        </div>
+        <button onclick="location.href='index.html'">Back to Home</button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            fetch('https://kot-pawel-github-io.onrender.com/meals')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Failed to fetch meals');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    const mealsList = document.getElementById('meals-list');
+                    mealsList.innerHTML = ''; // Clear loading text
+
+                    if (data.length === 0) {
+                        mealsList.innerHTML = '<p>No meals available.</p>';
+                        return;
+                    }
+
+                    data.forEach(meal => {
+                        const mealDiv = document.createElement('div');
+                        mealDiv.classList.add('day'); // Reusing the "day" style for each meal entry
+
+                        const mealName = document.createElement('div');
+                        mealName.classList.add('meal-name');
+                        mealName.textContent = meal.name;
+
+                        const mealIngredients = document.createElement('div');
+                        mealIngredients.classList.add('meal-ingredients');
+                        mealIngredients.textContent = 'Ingredients: ' + meal.ingredients.join(', ');
+
+                        mealDiv.appendChild(mealName);
+                        mealDiv.appendChild(mealIngredients);
+                        mealsList.appendChild(mealDiv);
+                    });
+                })
+                .catch(error => {
+                    console.error('Error fetching meals:', error);
+                    document.getElementById('meals-list').innerHTML = '<p>Failed to load meals. Please try again later.</p>';
+                });
+        });
+    </script>
+</body>
+</html>
