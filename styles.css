@@ -101,3 +101,16 @@ textarea {
     resize: none;
     height: 80px;
 }
+
+.delete-icon {
+    cursor: pointer;
+    margin-left: 10px;
+    color: red;
+    font-size: 1.2em;
+    vertical-align: middle;
+    transition: transform 0.2s;
+}
+
+.delete-icon:hover {
+    transform: scale(1.2);
+}

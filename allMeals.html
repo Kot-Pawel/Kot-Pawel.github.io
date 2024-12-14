@@ -40,7 +40,38 @@
 
                         const mealName = document.createElement('div');
                         mealName.classList.add('meal-name');
-                        mealName.textContent = meal.name;
+
+                        // Add meal name and delete icon
+                        const mealNameText = document.createElement('span');
+                        mealNameText.textContent = meal.name;
+
+                        const deleteIcon = document.createElement('span');
+                        deleteIcon.innerHTML = '&#128465;'; // Unicode for bin icon
+                        deleteIcon.classList.add('delete-icon');
+                        deleteIcon.addEventListener('click', function() {
+                            if (confirm(`Are you sure you want to delete "${meal.name}"?`)) {
+                                fetch(`https://kot-pawel-github-io.onrender.com/delete-meal/${encodeURIComponent(meal.name)}`, {
+                                    method: 'DELETE'
+                                })
+                                .then(response => {
+                                    if (!response.ok) {
+                                        throw new Error('Failed to delete meal');
+                                    }
+                                    return response.json();
+                                })
+                                .then(result => {
+                                    alert(result.message);
+                                    location.reload(); // Reload the page to update the list
+                                })
+                                .catch(error => {
+                                    console.error('Error deleting meal:', error);
+                                    alert('Failed to delete meal. Please try again.');
+                                });
+                            }
+                        });
+
+                        mealName.appendChild(mealNameText);
+                        mealName.appendChild(deleteIcon);
 
                         const mealIngredients = document.createElement('div');
                         mealIngredients.classList.add('meal-ingredients');

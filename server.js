@@ -53,3 +53,27 @@ app.get('/meals', (req, res) => {
         res.status(500).json({ message: 'Failed to load meals.' });
     }
 });
+
+// DELETE endpoint to remove a meal by name
+app.delete('/delete-meal/:name', (req, res) => {
+    const mealName = req.params.name;
+
+    try {
+        let meals = readDatabase();
+        const initialLength = meals.length;
+
+        // Filter out the meal to delete
+        meals = meals.filter(meal => meal.name !== mealName);
+
+        // Check if the meal was found and removed
+        if (meals.length === initialLength) {
+            return res.status(404).json({ message: `Meal with name "${mealName}" not found.` });
+        }
+
+        writeDatabase(meals);
+        res.status(200).json({ message: `Meal "${mealName}" deleted successfully.` });
+    } catch (error) {
+        console.error('Error deleting meal:', error);
+        res.status(500).json({ message: 'Failed to delete meal.' });
+    }
+});
