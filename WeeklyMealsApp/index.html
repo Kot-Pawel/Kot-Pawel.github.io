@@ -13,7 +13,7 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            height: 100vh;
+            min-height: 100vh;
             background-color: #f9f9f9;
         }
         #meal-container {
@@ -23,18 +23,25 @@
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             width: 90%;
-            max-width: 400px;
+            max-width: 600px;
         }
-        #meal-name {
-            font-size: 1.5em;
-            margin-bottom: 10px;
+        .day {
+            margin-bottom: 20px;
         }
-        #meal-ingredients {
-            margin: 10px 0;
+        .day-name {
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .meal-name {
+            font-size: 1em;
+            margin-bottom: 5px;
+        }
+        .meal-ingredients {
+            margin: 5px 0;
             text-align: left;
         }
-        #meal-prep-time {
-            margin: 10px 0;
+        .meal-prep-time {
             font-style: italic;
         }
         button {
@@ -53,26 +60,54 @@
 </head>
 <body>
     <div id="meal-container">
-        <div id="meal-name">Welcome! Click below to get a meal suggestion.</div>
-        <div id="meal-ingredients"></div>
-        <div id="meal-prep-time"></div>
-        <button id="suggest-meal">Suggest a Meal</button>
+        <div id="week-plan">
+            <div id="message">Welcome! Click below to get meal suggestions for the week.</div>
+        </div>
+        <button id="suggest-meals">Suggest Meals</button>
     </div>
 
     <script>
-        document.getElementById('suggest-meal').addEventListener('click', function() {
+        document.getElementById('suggest-meals').addEventListener('click', function() {
             fetch('database.json')
                 .then(response => response.json())
                 .then(data => {
-                    const randomMeal = data[Math.floor(Math.random() * data.length)];
+                    const daysOfWeek = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+                    const weekPlanContainer = document.getElementById('week-plan');
+                    weekPlanContainer.innerHTML = ''; // Clear previous content
 
-                    document.getElementById('meal-name').textContent = randomMeal.name;
-                    document.getElementById('meal-ingredients').textContent = 'Ingredients: ' + randomMeal.ingredients.join(', ');
-                    document.getElementById('meal-prep-time').textContent = 'Preparation Time: ' + randomMeal.prep_time + ' minutes';
+                    daysOfWeek.forEach(day => {
+                        const randomMeal = data[Math.floor(Math.random() * data.length)];
+
+                        const dayDiv = document.createElement('div');
+                        dayDiv.classList.add('day');
+
+                        const dayName = document.createElement('div');
+                        dayName.classList.add('day-name');
+                        dayName.textContent = day;
+
+                        const mealName = document.createElement('div');
+                        mealName.classList.add('meal-name');
+                        mealName.textContent = randomMeal.name;
+
+                        const mealIngredients = document.createElement('div');
+                        mealIngredients.classList.add('meal-ingredients');
+                        mealIngredients.textContent = 'Ingredients: ' + randomMeal.ingredients.join(', ');
+
+                        const mealPrepTime = document.createElement('div');
+                        mealPrepTime.classList.add('meal-prep-time');
+                        mealPrepTime.textContent = 'Preparation Time: ' + randomMeal.prep_time + ' minutes';
+
+                        dayDiv.appendChild(dayName);
+                        dayDiv.appendChild(mealName);
+                        dayDiv.appendChild(mealIngredients);
+                        dayDiv.appendChild(mealPrepTime);
+
+                        weekPlanContainer.appendChild(dayDiv);
+                    });
                 })
                 .catch(error => {
                     console.error('Error fetching meal data:', error);
-                    document.getElementById('meal-name').textContent = 'Failed to load meals. Please try again later.';
+                    document.getElementById('week-plan').innerHTML = '<div id="message">Failed to load meals. Please try again later.</div>';
                 });
         });
     </script>
