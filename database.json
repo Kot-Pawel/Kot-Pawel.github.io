@@ -20,11 +20,19 @@
     ]
   },
   {
-    "name": "Halloumi",
+    "name": "Napoli",
     "ingredients": [
-      "Halloumi",
-      "some vegetables",
-      "rice"
+      "Spaghetti",
+      "pomodoro",
+      "parmesan"
+    ]
+  },
+  {
+    "name": "Napoli",
+    "ingredients": [
+      "Spaghetti",
+      "pomodoro",
+      "parmesan"
     ]
   }
 ]
