@@ -69,14 +69,18 @@
             const newMeal = { name, ingredients, prep_time: prepTime, category: 'dinner', diet: 'regular' };
 
             fetch('https://kot-pawel-github-io.onrender.com/add-meal', {
-            method: 'POST',
-            headers: {
-            'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(newMeal)
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(newMeal)
             })
-
-            .then(response => response.json())
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                return response.json();
+            })
             .then(data => {
                 document.getElementById('message').textContent = data.message;
                 document.getElementById('add-meal-form').reset();
