@@ -16,81 +16,9 @@
         <button onclick="location.href='index.html'">Back to Home</button>
     </div>
 
-    <div id="note">
-        <div id="message_note">Note! Server might need ~60 seconds to spin up, so be patient!</div>
-    </div>
+    <div class="div" id="message_note">Note! Server might need ~60 seconds to spin up, so be patient!</div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            fetch('https://kot-pawel-github-io.onrender.com/meals')
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Failed to fetch meals');
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    const mealsList = document.getElementById('meals-list');
-                    mealsList.innerHTML = ''; // Clear loading text
-
-                    if (data.length === 0) {
-                        mealsList.innerHTML = '<p>No meals available.</p>';
-                        return;
-                    }
-
-                    data.forEach(meal => {
-                        const mealDiv = document.createElement('div');
-                        mealDiv.classList.add('day'); // Reusing the "day" style for each meal entry
-
-                        const mealName = document.createElement('div');
-                        mealName.classList.add('meal-name');
-
-                        // Add meal name and delete icon
-                        const mealNameText = document.createElement('span');
-                        mealNameText.textContent = meal.name;
-
-                        const deleteIcon = document.createElement('span');
-                        deleteIcon.innerHTML = '&#128465;'; // Unicode for bin icon
-                        deleteIcon.classList.add('delete-icon');
-                        deleteIcon.addEventListener('click', function() {
-                            if (confirm(`Are you sure you want to delete "${meal.name}"?`)) {
-                                fetch(`https://kot-pawel-github-io.onrender.com/delete-meal/${encodeURIComponent(meal.name)}`, {
-                                    method: 'DELETE'
-                                })
-                                .then(response => {
-                                    if (!response.ok) {
-                                        throw new Error('Failed to delete meal');
-                                    }
-                                    return response.json();
-                                })
-                                .then(result => {
-                                    alert(result.message);
-                                    location.reload(); // Reload the page to update the list
-                                })
-                                .catch(error => {
-                                    console.error('Error deleting meal:', error);
-                                    alert('Failed to delete meal. Please try again.');
-                                });
-                            }
-                        });
-
-                        mealName.appendChild(mealNameText);
-                        mealName.appendChild(deleteIcon);
-
-                        const mealIngredients = document.createElement('div');
-                        mealIngredients.classList.add('meal-ingredients');
-                        mealIngredients.textContent = 'Ingredients: ' + meal.ingredients.join(', ');
-
-                        mealDiv.appendChild(mealName);
-                        mealDiv.appendChild(mealIngredients);
-                        mealsList.appendChild(mealDiv);
-                    });
-                })
-                .catch(error => {
-                    console.error('Error fetching meals:', error);
-                    document.getElementById('meals-list').innerHTML = '<p>Failed to load meals. Please try again later.</p>';
-                });
-        });
-    </script>
+    <!-- Include external JavaScript file -->
+    <script src="scripts.js"></script>
 </body>
 </html>

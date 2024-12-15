@@ -10,7 +10,7 @@ body {
     background-color: #f9f9f9;
 }
 
-div {
+.div {
     background: #fff;
     padding: 20px;
     border-radius: 8px;
@@ -18,6 +18,7 @@ div {
     width: 90%;
     max-width: 600px;
     margin-bottom: 5px;
+    margin-top: 5px;
     }
 
 #meal-container {
@@ -27,7 +28,6 @@ div {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     width: 90%;
     max-width: 600px;
-    margin-bottom: 5px;
 }
 
 #add-meal-container {

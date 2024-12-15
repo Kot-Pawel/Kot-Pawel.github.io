@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    
     <div id="meal-container">
         <div id="week-plan">
             <div id="message">Welcome! Click below to get meal suggestions for the week.</div>
@@ -17,48 +18,8 @@
         <button onclick="location.href='allMeals.html'">See list of all meals</button>
     </div>
     
-    <div id="message_note">Note! Server might need ~60 seconds to spin up, so be patient!</div>
+    <div class="div" id="message_note">Note! Server might need ~60 seconds to spin up, so be patient!</div>
 
-
-    <script>
-        document.getElementById('suggest-meals').addEventListener('click', function() {
-            fetch('https://kot-pawel-github-io.onrender.com/meals')
-                .then(response => response.json())
-                .then(data => {
-                    const daysOfWeek = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
-                    const weekPlanContainer = document.getElementById('week-plan');
-                    weekPlanContainer.innerHTML = ''; // Clear previous content
-
-                    daysOfWeek.forEach(day => {
-                        const randomMeal = data[Math.floor(Math.random() * data.length)];
-
-                        const dayDiv = document.createElement('div');
-                        dayDiv.classList.add('day');
-
-                        const dayName = document.createElement('div');
-                        dayName.classList.add('day-name');
-                        dayName.textContent = day;
-
-                        const mealName = document.createElement('div');
-                        mealName.classList.add('meal-name');
-                        mealName.textContent = randomMeal.name;
-
-                        const mealIngredients = document.createElement('div');
-                        mealIngredients.classList.add('meal-ingredients');
-                        mealIngredients.textContent = 'Ingredients: ' + randomMeal.ingredients.join(', ');
-
-                        dayDiv.appendChild(dayName);
-                        dayDiv.appendChild(mealName);
-                        dayDiv.appendChild(mealIngredients);
-
-                        weekPlanContainer.appendChild(dayDiv);
-                    });
-                })
-                .catch(error => {
-                    console.error('Error fetching meal data:', error);
-                    document.getElementById('week-plan').innerHTML = '<div id="message">Failed to load meals. Please try again later.</div>';
-                });
-        });
-    </script>
+    <script src="scripts.js"></script>   
 </body>
 </html>
