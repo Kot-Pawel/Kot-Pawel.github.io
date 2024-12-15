@@ -4,21 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>All Meals</title>
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
+    <script type="module" src="FirebaseScripts.js"></script>
 </head>
 <body>
-    <div id="meal-container">
-        <h1>All Meals</h1>
-        <div id="meals-list">
-            <p>Loading meals...</p>
-        </div>
-        <button onclick="location.href='index.html'">Back to Home</button>
-    </div>
-
-    <div class="div" id="message_note">Note! Server might need ~60 seconds to spin up, so be patient!</div>
-
-    <!-- Include external JavaScript file -->
-    <script src="scripts.js"></script>
+    <h1>All Meals</h1>
+    <div id="authStatus">Checking authentication status...</div>
+    <ul id="meals">Loading meals...</ul>
+    <button onclick="window.location.href='index.html'">Back to main</button><br>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            loadMeals(); // Call the loadMeals function from FirebaseScripts.js
+        });
+    </script>
 </body>
 </html>

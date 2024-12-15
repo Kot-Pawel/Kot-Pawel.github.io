@@ -11,3 +11,11 @@ Important notes to self about this project:
     /meals -> gets meals
     /add-meal -> adds meals
     /delete-meal/:name -> deletes a meal
+
+
+Rules in Firebase:
+
+Allow authenticated users to only write their own data.
+Restrict write access to administrators or specific users.
+
+Firebase is used for backend - handling database

@@ -3,23 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Meal Suggestion App</title>
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <title>Weekly meals app</title>
+    <script type="module" src="FirebaseScripts.js"></script>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    
-    <div id="meal-container">
-        <div id="week-plan">
-            <div id="message">Welcome! Click below to get meal suggestions for the week.</div>
-        </div>
-        <button id="suggest-meals">Suggest Meals</button>
-        <button onclick="location.href='add_meal_ui.html'">Add a New Meal</button>
-        <button onclick="location.href='allMeals.html'">See list of all meals</button>
+    <h1>Weekly meals app</h1>
+    <div id="authStatus">Checking authentication status...</div>
+    <form id="loginForm" onsubmit="login(event)">
+        <h2>Login</h2>
+        <label for="email">Email:</label><br>
+        <input type="email" id="email" name="email" required autocomplete="username"><br>
+        <label for="password">Password:</label><br>
+        <input type="password" id="password" name="password" required autocomplete="current-password"><br>
+        <button type="submit">Login</button>
+    </form>
+    <div id="loggedInActions" style="display: none;">
+        <button onclick="logout()">Logout</button><br>
+        <button onclick="window.location.href='addNewMeal.html'">Add New Meal</button><br>
+        <button onclick="window.location.href='allMeals.html'">See all meals</button><br>
+        <button onclick="generateWeeklyMeals()">Generate Weekly Meals</button><br>
     </div>
+    <ul id="weeklyMeals" class="meal-list" style="display: none;"></ul>
     
-    <div class="div" id="message_note">Note! Server might need ~60 seconds to spin up, so be patient!</div>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const loginForm = document.getElementById("loginForm");
+            const loggedInActions = document.getElementById("loggedInActions");
+            const weeklyMeals = document.getElementById("weeklyMeals");
 
-    <script src="scripts.js"></script>   
-</body>
+            onAuthStateChanged(auth, (user) => {
+                if (user) {
+                    loginForm.style.display = "none";
+                    loggedInActions.style.display = "block";
+                } else {
+                    loginForm.style.display = "block";
+                    loggedInActions.style.display = "none";
+                    weeklyMeals.style.display = "none";
+                }
+            });
+        });
+    </script>
+
+ </body>
 </html>

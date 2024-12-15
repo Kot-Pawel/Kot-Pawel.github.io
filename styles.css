@@ -1,127 +1,126 @@
 body {
-    font-family: 'Open Sans', Arial, sans-serif;
+    font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
+    background-color: #f4f4f9;
+    color: #333;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
     min-height: 100vh;
-    background-color: #f9f9f9;
 }
 
-.div {
-    background: #fff;
+h1 {
+    background-color: #6200ea;
+    color: #fff;
     padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 90%;
-    max-width: 600px;
-    margin-bottom: 5px;
-    margin-top: 5px;
-    }
-
-#meal-container {
-    background: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 90%;
-    max-width: 600px;
+    width: 100%;
+    text-align: center;
+    margin: 0;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-#add-meal-container {
-    background: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 90%;
-    max-width: 600px;
-    }
-
-.day {
-    margin-bottom: 20px;
+#authStatus {
+    margin: 20px;
     padding: 10px;
-    border-left: 4px solid #007BFF;
-    background: #f0f8ff;
+    border: 1px solid #ddd;
+    background-color: #fff;
     border-radius: 5px;
-}
-
-.day-name {
-    font-size: 1.4em;
-    font-weight: bold;
-    color: #007BFF;
-    margin-bottom: 5px;
-}
-
-.meal-name {
-    font-size: 1.2em;
-    margin-bottom: 5px;
-}
-
-.meal-ingredients {
-    margin: 5px 0;
-    text-align: left;
-    color: #555;
-}
-
-button {
-    background: linear-gradient(90deg, #007BFF, #0056b3);
-    color: white;
-    border: none;
-    padding: 12px 24px;
-    border-radius: 30px;
-    cursor: pointer;
-    font-size: 1em;
-    margin-top: 10px;
-    display: block;
-    text-transform: uppercase;
-    font-weight: bold;
-    letter-spacing: 1px;
-    transition: transform 0.2s, box-shadow 0.2s;
-}
-
-button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-button:active {
-    transform: translateY(0);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 form {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    width: 100%;
-    max-width: 400px;
-    margin-top: 20px;
-}
-
-input, textarea {
-    font-size: 1em;
-    padding: 10px;
-    border: 1px solid #ccc;
+    margin: 20px;
+    padding: 20px;
+    background-color: #fff;
     border-radius: 5px;
-    width: 100%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 300px;
 }
 
-textarea {
-    resize: none;
-    height: 80px;
+form h2 {
+    margin-top: 0;
 }
 
-.delete-icon {
+.form-container {
+    margin: 20px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 300px;
+}
+
+input[type="email"],
+input[type="password"] {
+    width: calc(100% - 20px);
+    padding: 8px 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+input {
+    width: calc(100% - 20px);
+    padding: 8px 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+button {
+    padding: 10px 15px;
+    background-color: #6200ea;
+    color: white;
+    border: none;
+    border-radius: 5px;
     cursor: pointer;
-    margin-left: 10px;
-    color: red;
-    font-size: 1.2em;
-    vertical-align: middle;
-    transition: transform 0.2s;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 5px;
 }
 
-.delete-icon:hover {
-    transform: scale(1.2);
+.button-container {
+    padding: 10px 15px;
+    background-color: #6200ea;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 5px;
+}
+
+button:hover {
+    background-color: #4500b5;
+}
+
+#loggedInActions {
+    margin: 20px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 300px;
+}
+
+#meals {
+    margin: 20px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 80%;
+    max-width: 600px;
+}
+
+#meals li {
+    list-style: none;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+#meals li:last-child {
+    border-bottom: none;
 }
