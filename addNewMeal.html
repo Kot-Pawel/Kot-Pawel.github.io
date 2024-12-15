@@ -10,18 +10,41 @@
 <body>
     <h1>Add New Meal</h1>
     <div id="authStatus" class="status">Checking authentication status...</div>
+
     <form id="mealForm" onsubmit="addMeal(event)" class="form-container">
         <h2>Add a Meal</h2>
         <label for="mealName">Meal Name:</label>
         <input type="text" id="mealName" name="mealName" required>
-
         <label for="ingredients">Ingredients (comma-separated):</label>
         <input type="text" id="ingredients" name="ingredients" required>
-
+        <label for="link">Link to recipe</label>
+        <input type="text" id="link" name="link">
         <button type="submit">Add Meal</button>
     </form>
+
     <div class="button-container">
         <button onclick="window.location.href='index.html'">Back to Main</button>
     </div>
+
+    <script type="module">
+        import { monitorAuthState, showElement, updateAuthStatus } from './FirebaseScripts.js';
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const authStatus = document.getElementById("authStatus");
+            authStatus.textContent = "Checking authentication status...";
+
+            monitorAuthState((user) => {
+                updateAuthStatus(user); // Update the status dynamically
+
+                if (user) {
+                    showElement("mealForm", true); // Show form if user is logged in
+                } else {
+                    showElement("mealForm", false); // Hide form if not logged in
+                    alert("You need to log in to add a meal.");
+                    window.location.href = 'index.html'; // Redirect to main page
+                }
+            });
+        });
+    </script>
 </body>
 </html>

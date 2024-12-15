@@ -1,6 +1,6 @@
 // Firebase configuration
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js";
-import { getDatabase, ref, push, onValue, get } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-database.js";
+import { getDatabase, ref, push, onValue, get, remove } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-database.js";
 import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-auth.js";
 
 const firebaseConfig = {
@@ -19,37 +19,51 @@ export const app = initializeApp(firebaseConfig);
 export const db = getDatabase(app);
 export const auth = getAuth(app);
 
-// Monitor authentication state
-export function monitorAuthState() {
+// Centralized auth state monitoring
+export function monitorAuthState(callback) {
     onAuthStateChanged(auth, (user) => {
-        const authStatus = document.getElementById("authStatus");
-        if (user) {
-            authStatus.textContent = `Logged in as: ${user.email}`;
-                        
-        } else {
-            authStatus.textContent = "Not logged in.";
-        }
+        if (callback) callback(user);
     });
 }
 
+// Reusable DOM utilities
+export function showElement(id, show = true) {
+    const element = document.getElementById(id);
+    if (element) element.style.display = show ? "block" : "none";
+}
+
+export function updateAuthStatus(user) {
+    const authStatus = document.getElementById("authStatus");
+    if (authStatus) {
+        if (user) {
+            authStatus.innerHTML = `Logged in as: ${user.email} <button id="logoutButton">Logout</button>`;
+            const logoutButton = document.getElementById("logoutButton");
+            logoutButton.addEventListener("click", async () => {
+                try {
+                    await signOut(auth);
+                    alert("Logged out successfully!");
+                } catch (error) {
+                    console.error("Logout error:", error);
+                    alert("Logout failed. Check console for details.");
+                }
+            });
+        } else {
+            authStatus.textContent = "Not logged in.";
+        }
+    }
+}
 
 // Function to log in
 export async function login(event) {
     event.preventDefault();
-    console.log("Login function called.");
-
     const email = document.getElementById("email").value;
     const password = document.getElementById("password").value;
 
-    console.log("Email entered:", email);
-    console.log("Password entered:", password ? "*****" : "(empty)");
-
     try {
         const userCredential = await signInWithEmailAndPassword(auth, email, password);
-        console.log("User logged in:", userCredential.user);
         alert("Logged in successfully!");
     } catch (error) {
-        console.error("Login error:", error.code, error.message);
+        console.error("Login error:", error);
         alert(`Login failed: ${error.message}`);
     }
 }
@@ -64,17 +78,17 @@ export async function logout() {
         alert("Logout failed. Check console for details.");
     }
 }
-
 // Function to add meal to Firebase
 export async function addMeal(event) {
     event.preventDefault(); // Prevent page reload
 
     const mealName = document.getElementById("mealName").value;
     const ingredients = document.getElementById("ingredients").value.split(",").map(item => item.trim());
+    const link = document.getElementById("link").value;
 
     if (mealName && ingredients.length) {
-        const newMeal = { name: mealName, ingredients, timesUsed: 0 }; // Adding timesUsed with a default value of 0
-        const mealsRef = ref(db, "meals");
+        const newMeal = { name: mealName, ingredients, timesUsed: 0, link }; // Adding timesUsed with a default value of 0
+        const mealsRef = ref(db, "meals");  
         try {
             const response = await push(mealsRef, newMeal);
             console.log("Meal added successfully:", response.key);
@@ -89,7 +103,7 @@ export async function addMeal(event) {
     }
 }
 
-// Fetch and display meals from Realtime Database
+// Fetch and display meals from Firebase
 export function loadMeals() {
     const mealsList = document.getElementById("meals");
     const mealsRef = ref(db, "meals");
@@ -100,10 +114,55 @@ export function loadMeals() {
         const meals = snapshot.val();
         if (meals) {
             console.log("Meals fetched:", meals);
-            for (const guid in meals) {
-                const meal = meals[guid];
+
+            // Convert meals object into an array and sort by name
+            const sortedMeals = Object.entries(meals).sort(([, a], [, b]) => 
+                a.name.localeCompare(b.name)
+            );
+
+            for (const [mealId, meal] of sortedMeals) {
                 const li = document.createElement("li");
-                li.textContent = `${meal.name}: ${meal.ingredients.join(", ")}`;
+                li.classList.add("meal-item");
+
+                // Meal name
+                const mealName = document.createElement("div");
+                mealName.classList.add("meal-name");
+                mealName.textContent = meal.name;
+
+                // Meal ingredients
+                const mealIngredients = document.createElement("div");
+                mealIngredients.classList.add("meal-ingredients");
+                mealIngredients.textContent = `Ingredients: ${meal.ingredients.join(", ")}`;
+
+                // Delete button
+                const deleteButton = document.createElement("button");
+                deleteButton.classList.add("delete-button");
+                deleteButton.innerHTML = '<i class="fas fa-trash"></i>'; // Add trash icon
+                deleteButton.addEventListener("click", () => {
+                    if (confirm(`Are you sure you want to delete "${meal.name}"?`)) {
+                        deleteMeal(mealId);
+                    }
+                });
+
+
+                // Append elements to list item
+                li.appendChild(mealName);
+                li.appendChild(mealIngredients);
+                
+                // Recipe link
+                if (meal.link && meal.link !== "none") {
+                    const mealLink = document.createElement("a"); // Create an anchor element
+                    mealLink.classList.add("meal-link"); // Add a CSS class for styling
+                    mealLink.textContent = "Link to recipe"; // Set the display text
+                    mealLink.href = meal.link; // Set the URL
+                    mealLink.target = "_blank"; // Open the link in a new tab
+                    mealLink.rel = "noopener noreferrer"; // Improve security for external links
+                    li.appendChild(mealLink);                                                  
+                    }             
+                
+                li.appendChild(deleteButton);  
+
+                // Append list item to meals list
                 mealsList.appendChild(li);
             }
         } else {
@@ -114,6 +173,19 @@ export function loadMeals() {
         console.error("Error fetching meals:", error);
     });
 }
+
+
+export async function deleteMeal(mealId) {
+    const mealRef = ref(db, `meals/${mealId}`);
+    try {
+        await remove(mealRef);
+        alert("Meal deleted successfully!");
+    } catch (error) {
+        console.error("Error deleting meal:", error);
+        alert("Failed to delete meal. Check console for details.");
+    }
+}
+
 
 // Function to generate a random weekly meal plan
 export async function generateWeeklyMeals() {
@@ -144,9 +216,33 @@ export async function generateWeeklyMeals() {
 
         weeklyMeals.forEach((meal, index) => {
             const li = document.createElement("li");
-            li.textContent = `${daysOfWeek[index]}: ${meal.name} (${meal.ingredients.join(", ")})`;
+        
+            // Add day and meal name
+            const mealInfo = document.createElement("div");
+            mealInfo.textContent = `${daysOfWeek[index]}: ${meal.name} (${meal.ingredients.join(", ")})`;
+        
+            // Add hyperlink if a valid link exists
+            if (meal.link && meal.link !== "None") {
+                const mealLink = document.createElement("a");
+                mealLink.classList.add("meal-link");
+                mealLink.textContent = "Link to recipe";
+                mealLink.href = meal.link;
+                mealLink.target = "_blank";
+                mealLink.rel = "noopener noreferrer";
+        
+                // Append the link to the list item
+                li.appendChild(mealInfo);
+                li.appendChild(mealLink);
+            } else {
+                // Append just the meal info if no link is available
+                li.appendChild(mealInfo);
+            }
+        
+            // Append the list item to the weekly meals list
             weeklyMealsList.appendChild(li);
         });
+        
+
     } catch (error) {
         console.error("Error generating weekly meals:", error);
         alert("Failed to generate weekly meals. Check console for details.");
