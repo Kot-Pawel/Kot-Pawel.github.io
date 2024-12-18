@@ -1,35 +1,29 @@
 /* Update Body */
 body {
-    font-family: 'Roboto', sans-serif;
     margin: 0;
-    padding: 0;
-    background-color: #e0f2f1; /* Light Mint */
-    color: #263238; /* Dark Slate Gray */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    min-height: 100vh;
+    font-family: 'Roboto', sans-serif;
+    background-color: #e6f2ef;
+    color: #333;
 }
 
 /* Header */
-h1 {
-    background: linear-gradient(135deg, #004d40, #00796b); /* Gradient Teal */
-    color: white;
-    padding: 20px;
+header {
+    background-color: #004d40;
+    color: #fff;
+    padding: 1rem 2rem;
     width: 100%;
+    max-width: 800px;    
+    justify-content: center; /* Centers the content horizontally */
+    align-items: center; /* Centers the content vertically */
     text-align: center;
-    margin: 0;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    margin: 0 auto; /* Centers the header itself within the page */
 }
+
+
 
 /* Authentication Status */
 #authStatus {
-    margin: 20px;
-    padding: 15px;
-    border: 1px solid #b2dfdb; /* Teal Accent */
-    background-color: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    font-size: 0.9rem;
 }
 
 /* Forms */
@@ -55,23 +49,43 @@ input[type="password"] {
     box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
+input {
+    width: 100%;
+    padding: 0.8rem;
+    margin: 0.5rem 0 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
 /* Buttons */
 button {
-    padding: 12px 20px;
-    font-family: 'Poppins', sans-serif;
-    font-size: 1rem;
-    background: linear-gradient(135deg, #004d40, #00796b); /* Gradient Teal */
-    color: white;
+    background-color: #00796b;
+    color: #fff;
     border: none;
-    border-radius: 8px;
+    padding: 0.8rem 1.2rem;
+    border-radius: 5px;
+    margin: 0.5rem 0;
+    width: 100%;
+    font-size: 1rem;
     cursor: pointer;
-    transition: transform 0.2s, background-color 0.3s;
-    margin-bottom: 5px;
+    transition: background-color 0.3s;
 }
 
 button:hover {
-    background-color: #ff7043; /* Coral */
+    background-color: #004d40;
     transform: scale(1.05);
+}
+
+#loggingButton {
+    background-color: #00796b;
+    color: #fff;
+    border: none;
+    padding: 0.8rem 1.2rem;
+    border-radius: 5px;
+    margin: 0.5rem 0;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
 }
 
 /* Logged-In Actions */
@@ -97,6 +111,10 @@ button:hover {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     overflow: hidden;
     color: #ffffff; /* White text for dark background */
+    justify-content: center; /* Centers the content horizontally */
+    align-items: center; /* Centers the content vertically */
+    text-align: center;
+    margin: 0 auto; /* Centers the header itself within the page */
 }
 
 .meal-list li {
@@ -158,7 +176,12 @@ button:hover {
 
 
 /**Forms**/
-
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 2rem;
+}
 .form-container {
     display: none;
     max-width: 400px;
@@ -199,4 +222,26 @@ button:hover {
 
 .form-container button:hover {
     background-color: #4500b5;
+}
+
+.card {
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    padding: 2rem;
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+}
+.card h2 {
+    margin-bottom: 1rem;
+    color: #004d40;
+}
+
+/**Footer**/
+
+footer {
+    text-align: center;
+    margin: 2rem 0;
+    color: #666;
 }

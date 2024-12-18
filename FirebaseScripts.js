@@ -60,8 +60,7 @@ export async function login(event) {
     const password = document.getElementById("password").value;
 
     try {
-        const userCredential = await signInWithEmailAndPassword(auth, email, password);
-        alert("Logged in successfully!");
+        const userCredential = await signInWithEmailAndPassword(auth, email, password);        
     } catch (error) {
         console.error("Login error:", error);
         alert(`Login failed: ${error.message}`);

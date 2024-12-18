@@ -8,8 +8,10 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>Add New Meal</h1>
-    <div id="authStatus" class="status">Checking authentication status...</div>
+    <header>
+        <h1>Weekly Meals App</h1>
+        <div id="authStatus">Logged in as: <span id="userEmail">Checking...</span></div>    
+    </header>
 
     <form id="mealForm" onsubmit="addMeal(event)" class="form-container">
         <h2>Add a Meal</h2>
