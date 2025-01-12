@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weekly Meals App - User Guide</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #004d40;
+            color: white;
+            text-align: center;
+            padding: 1rem 0;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2rem;
+        }
+
+        main {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 1rem;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #00796b;
+        }
+
+        p {
+            line-height: 1.6;
+        }
+
+        .feature {
+            margin-bottom: 2rem;
+        }
+
+        .feature h3 {
+            color: #004d40;
+        }
+
+        .feature ol, .feature ul {
+            margin-left: 1.5rem;
+        }
+
+        .back-button {
+            display: block;
+            text-align: center;
+            margin: 2rem 0 0;
+            color: white;
+            background-color: #00796b;
+            padding: 0.8rem 1.5rem;
+            text-decoration: none;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            font-size: 1rem;
+            transition: background-color 0.3s;
+        }
+
+        .back-button:hover {
+            background-color: #004d40;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Weekly Meals App - User Guide</h1>
+    </header>
+    <main>
+        <h2>Welcome!</h2>
+        <p>Thank you for using the <strong>Weekly Meals App</strong>. Follow these steps to plan your meals effortlessly!</p>
+
+        <div class="feature">
+            <h3>Getting Started</h3>
+            <p>Log in using your email and password. You must log in to access the app’s features.</p>
+        </div>
+
+        <div class="feature">
+            <h3>1. Add a New Meal</h3>
+            <ol>
+                <li>Click the <strong>“Add New Meal”</strong> button on the main page.</li>
+                <li>Fill out the form with:
+                    <ul>
+                        <li><strong>Meal Name:</strong> Enter the name of your dish.</li>
+                        <li><strong>Ingredients:</strong> List them, separated by commas.</li>
+                        <li><strong>Recipe Link:</strong> Add an optional URL for the recipe.</li>
+                        <li><strong>Difficulty:</strong> Choose Easy, Medium, or Hard.</li>
+                    </ul>
+                </li>
+                <li>Click <strong>“Add Meal”</strong> to save it!</li>
+            </ol>
+        </div>
+
+        <div class="feature">
+            <h3>2. View All Meals</h3>
+            <ol>
+                <li>Click <strong>“See All Meals”</strong> on the main page.</li>
+                <li>Browse meals and see:
+                    <ul>
+                        <li>Name, ingredients, difficulty, times used, and recipe link.</li>
+                    </ul>
+                </li>
+                <li>To delete a meal, click the trash icon and confirm.</li>
+            </ol>
+        </div>
+
+        <div class="feature">
+            <h3>3. Generate a Weekly Meal Plan</h3>
+            <ol>
+                <li>Click <strong>“Generate Weekly Meals”</strong> on the main page.</li>
+                <li>To include “Office Days”:
+                    <ul>
+                        <li>Check the <strong>“Include Office Days”</strong> box.</li>
+                        <li>Enter the number of office days (0–5).</li>
+                    </ul>
+                </li>
+                <li>View your 7-day plan, including office days and meal details.</li>
+            </ol>
+        </div>
+
+        <div class="feature">
+            <h3>Tips & Support</h3>
+            <p>
+                - <strong>Logout:</strong> Click the logout button to sign out.<br>
+                - <strong>Navigation:</strong> Use the <strong>“Back to Main”</strong> button to return to the main page.
+            </p>
+        </div>
+
+        <a href="index.html" class="back-button">Back to Main Page</a>
+    </main>
+</body>
+</html>
