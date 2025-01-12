@@ -80,7 +80,12 @@ export async function logout() {
 }
 // Function to add meal to Firebase
 export async function addMeal(event) {
-    event.preventDefault(); // Prevent page reload
+    event.preventDefault();
+    const user = auth.currentUser;
+    if (!user) {
+        alert("You must be logged in to add meals.");
+        return;
+    }
 
     const mealName = document.getElementById("mealName").value;
     const ingredients = document.getElementById("ingredients").value.split(",").map(item => item.trim());
@@ -88,8 +93,9 @@ export async function addMeal(event) {
     const difficulty = document.getElementById("difficulty").value;
 
     if (mealName && ingredients.length) {
-        const newMeal = { name: mealName, ingredients, timesUsed: 0, link, difficulty }; 
-        const mealsRef = ref(db, "meals");  
+        const newMeal = { name: mealName, ingredients, timesUsed: 0, link, difficulty };
+        const mealsRef = ref(db, `meals/${user.uid}`); // Save under user's UID
+
         try {
             const response = await push(mealsRef, newMeal);
             console.log("Meal added successfully:", response.key);
@@ -104,15 +110,24 @@ export async function addMeal(event) {
     }
 }
 
+
 // Fetch and display meals from Firebase
 export function loadMeals() {
     const mealsList = document.getElementById("meals");
-    const mealsRef = ref(db, "meals");
+    const user = auth.currentUser; // Get the currently logged-in user
+
+    if (!user) {
+        alert("You must be logged in to view meals.");
+        return;
+    }
+
+    const mealsRef = ref(db, `meals/${user.uid}`); // Reference meals under the user's UID
 
     console.log("Fetching meals from Firebase...");
     onValue(mealsRef, (snapshot) => {
         mealsList.innerHTML = ""; // Clear existing data
         const meals = snapshot.val();
+
         if (meals) {
             console.log("Meals fetched:", meals);
 
@@ -141,14 +156,14 @@ export function loadMeals() {
                 deleteButton.innerHTML = '<i class="fas fa-trash"></i>'; // Add trash icon
                 deleteButton.addEventListener("click", () => {
                     if (confirm(`Are you sure you want to delete "${meal.name}"?`)) {
-                        deleteMeal(mealId);
+                        deleteMeal(mealId); // Call deleteMeal with the specific meal ID
                     }
                 });
 
                 // Append elements to list item
                 li.appendChild(mealName);
                 li.appendChild(mealIngredients);
-                
+
                 // Recipe link
                 if (meal.link && meal.link !== "none") {
                     const mealLink = document.createElement("a"); // Create an anchor element
@@ -157,9 +172,9 @@ export function loadMeals() {
                     mealLink.href = meal.link; // Set the URL
                     mealLink.target = "_blank"; // Open the link in a new tab
                     mealLink.rel = "noopener noreferrer"; // Improve security for external links
-                    li.appendChild(mealLink);                                                  
-                    }             
-                
+                    li.appendChild(mealLink);
+                }
+
                 // Add timesUsed to the meal list item
                 const timesUsed = document.createElement("div");
                 timesUsed.textContent = `Times used: ${meal.timesUsed || 0}`;
@@ -169,7 +184,7 @@ export function loadMeals() {
                 difficulty.textContent = `Difficulty: ${meal.difficulty || "n/a"}`;
                 li.appendChild(difficulty);
 
-                li.appendChild(deleteButton);  
+                li.appendChild(deleteButton);
 
                 // Append list item to meals list
                 mealsList.appendChild(li);
@@ -183,11 +198,20 @@ export function loadMeals() {
     });
 }
 
+
 //Function to delete a meal
 export async function deleteMeal(mealId) {
-    const mealRef = ref(db, `meals/${mealId}`);
+    const user = auth.currentUser; // Get the currently logged-in user
+
+    if (!user) {
+        alert("You must be logged in to delete meals.");
+        return;
+    }
+
+    const mealRef = ref(db, `meals/${user.uid}/${mealId}`); // Reference the meal under the user's UID
+
     try {
-        await remove(mealRef);
+        await remove(mealRef); // Remove the meal
         alert("Meal deleted successfully!");
     } catch (error) {
         console.error("Error deleting meal:", error);
@@ -195,11 +219,17 @@ export async function deleteMeal(mealId) {
     }
 }
 
-
 // Function to generate a random weekly meal plan
 export async function generateWeeklyMeals() {
     try {
-        const mealsRef = ref(db, "meals");
+        const user = auth.currentUser; // Get the logged-in user
+
+        if (!user) {
+            alert("You must be logged in to generate a weekly meal plan.");
+            return;
+        }
+
+        const mealsRef = ref(db, `meals/${user.uid}`); // Reference meals under the user's UID
         const snapshot = await get(mealsRef);
         const meals = snapshot.val();
 
@@ -251,7 +281,7 @@ export async function generateWeeklyMeals() {
         weeklyMealsList.innerHTML = "";
         weeklyMealsList.style.display = "block";
 
-        // Combine office days and selected meals into final meal plan
+        // Combine office days and selected meals into the final meal plan
         const finalMealPlan = [...officeDays, ...selectedHardMeals, ...selectedEasyMediumMeals];
 
         for (let i = 0; i < finalMealPlan.length; i++) {
@@ -272,10 +302,10 @@ export async function generateWeeklyMeals() {
                 mealInfo.textContent = `${daysOfWeek[i]}: ${meal.name} (${meal.ingredients.join(", ")})`;
                 li.appendChild(mealInfo);
                 const mealDifficulty = document.createElement("div");
-                mealDifficulty.textContent = `Difficulty ${meal.difficulty}`;
+                mealDifficulty.textContent = `Difficulty: ${meal.difficulty}`;
                 li.appendChild(mealDifficulty);
                 const timesUsedDisplay = document.createElement("div");
-                timesUsedDisplay.textContent = `Times used ${meal.timesUsed}`;
+                timesUsedDisplay.textContent = `Times used: ${meal.timesUsed}`;
                 li.appendChild(timesUsedDisplay);
 
                 // Add hyperlink if a valid link exists
@@ -300,19 +330,27 @@ export async function generateWeeklyMeals() {
 }
 
 
-
 //Function to increment timesUsed for meal
 export async function incrementTimesUsed(mealId) {
-    const mealRef = ref(db, `meals/${mealId}/timesUsed`);
+    const user = auth.currentUser; // Get the currently logged-in user
+
+    if (!user) {
+        console.error("No user logged in. Cannot increment timesUsed.");
+        return;
+    }
+
+    const mealRef = ref(db, `meals/${user.uid}/${mealId}/timesUsed`); // Reference the specific meal under the user's UID
+
     try {
         const snapshot = await get(mealRef);
-        const currentCount = snapshot.exists() ? snapshot.val() : 0;
-        await set(mealRef, currentCount + 1);
+        const currentCount = snapshot.exists() ? snapshot.val() : 0; // Get the current timesUsed value
+        await set(mealRef, currentCount + 1); // Increment the value by 1
         console.log(`Incremented timesUsed for meal ${mealId}`);
     } catch (error) {
         console.error(`Failed to increment timesUsed for meal ${mealId}:`, error);
     }
 }
+
 
 //Function to include office days
 document.addEventListener("DOMContentLoaded", () => {
