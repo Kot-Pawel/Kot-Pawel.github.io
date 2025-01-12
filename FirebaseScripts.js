@@ -2,6 +2,7 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js";
 import { getDatabase, ref, push, onValue, get, remove } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-database.js";
 import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-auth.js";
+import { set } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-database.js";
 
 const firebaseConfig = {
     apiKey: "AIzaSyBGA_bCJlEW7aA-5iIkv8JKIhr31pRF5F4",
@@ -84,9 +85,10 @@ export async function addMeal(event) {
     const mealName = document.getElementById("mealName").value;
     const ingredients = document.getElementById("ingredients").value.split(",").map(item => item.trim());
     const link = document.getElementById("link").value;
+    const difficulty = document.getElementById("difficulty").value;
 
     if (mealName && ingredients.length) {
-        const newMeal = { name: mealName, ingredients, timesUsed: 0, link }; // Adding timesUsed with a default value of 0
+        const newMeal = { name: mealName, ingredients, timesUsed: 0, link, difficulty }; 
         const mealsRef = ref(db, "meals");  
         try {
             const response = await push(mealsRef, newMeal);
@@ -143,7 +145,6 @@ export function loadMeals() {
                     }
                 });
 
-
                 // Append elements to list item
                 li.appendChild(mealName);
                 li.appendChild(mealIngredients);
@@ -159,6 +160,15 @@ export function loadMeals() {
                     li.appendChild(mealLink);                                                  
                     }             
                 
+                // Add timesUsed to the meal list item
+                const timesUsed = document.createElement("div");
+                timesUsed.textContent = `Times used: ${meal.timesUsed || 0}`;
+                li.appendChild(timesUsed);
+
+                const difficulty = document.createElement("div");
+                difficulty.textContent = `Difficulty: ${meal.difficulty || "n/a"}`;
+                li.appendChild(difficulty);
+
                 li.appendChild(deleteButton);  
 
                 // Append list item to meals list
@@ -173,7 +183,7 @@ export function loadMeals() {
     });
 }
 
-
+//Function to delete a meal
 export async function deleteMeal(mealId) {
     const mealRef = ref(db, `meals/${mealId}`);
     try {
@@ -198,55 +208,130 @@ export async function generateWeeklyMeals() {
             return;
         }
 
-        const mealKeys = Object.keys(meals);
-        if (mealKeys.length < 7) {
-            alert("Not enough meals to generate a full week.");
+        const mealEntries = Object.entries(meals);
+
+        // Get number of office days from input field
+        const officeDaysInput = document.getElementById("officeDaysInput");
+        const includeOfficeDaysCheckbox = document.getElementById("includeOfficeDays");
+        const isOfficeDaysIncluded = includeOfficeDaysCheckbox && includeOfficeDaysCheckbox.checked;
+        const officeDaysCount = officeDaysInput ? parseInt(officeDaysInput.value, 10) : 0;
+
+        if (isOfficeDaysIncluded && (isNaN(officeDaysCount) || officeDaysCount < 0 || officeDaysCount > 5)) {
+            alert("Please enter a valid number of office days (0-5).");
             return;
         }
 
-        const shuffledKeys = mealKeys.sort(() => 0.5 - Math.random()).slice(0, 7);
-        const weeklyMeals = shuffledKeys.map(key => meals[key]);
+        const daysOfWeek = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+        const officeDays = Array(officeDaysCount).fill("Office day");
+        const remainingDays = daysOfWeek.length - officeDaysCount;
+
+        // Group meals by difficulty and sort by timesUsed (ascending)
+        const hardMeals = mealEntries
+            .filter(([, meal]) => meal.difficulty === "hard")
+            .sort(([, a], [, b]) => (a.timesUsed || 0) - (b.timesUsed || 0));
+
+        const easyMediumMeals = mealEntries
+            .filter(([, meal]) => meal.difficulty === "easy" || meal.difficulty === "medium")
+            .sort(([, a], [, b]) => (a.timesUsed || 0) - (b.timesUsed || 0));
+
+        if (hardMeals.length < 2 || easyMediumMeals.length < (remainingDays - 2)) {
+            alert("Not enough meals available to meet the criteria.");
+            return;
+        }
+
+        // Select 2 hard meals with the least timesUsed
+        const selectedHardMeals = hardMeals.slice(0, 2).map(([mealId, meal]) => ({ ...meal, id: mealId }));
+
+        // Select the remaining easy/medium meals with the least timesUsed
+        const selectedEasyMediumMeals = easyMediumMeals
+            .slice(0, remainingDays - 2)
+            .map(([mealId, meal]) => ({ ...meal, id: mealId }));
 
         const weeklyMealsList = document.getElementById("weeklyMeals");
         weeklyMealsList.innerHTML = "";
         weeklyMealsList.style.display = "block";
 
-        const daysOfWeek = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+        // Combine office days and selected meals into final meal plan
+        const finalMealPlan = [...officeDays, ...selectedHardMeals, ...selectedEasyMediumMeals];
 
-        weeklyMeals.forEach((meal, index) => {
+        for (let i = 0; i < finalMealPlan.length; i++) {
+            const meal = finalMealPlan[i];
             const li = document.createElement("li");
-        
-            // Add day and meal name
-            const mealInfo = document.createElement("div");
-            mealInfo.textContent = `${daysOfWeek[index]}: ${meal.name} (${meal.ingredients.join(", ")})`;
-        
-            // Add hyperlink if a valid link exists
-            if (meal.link && meal.link !== "None") {
-                const mealLink = document.createElement("a");
-                mealLink.classList.add("meal-link");
-                mealLink.textContent = "Link to recipe";
-                mealLink.href = meal.link;
-                mealLink.target = "_blank";
-                mealLink.rel = "noopener noreferrer";
-        
-                // Append the link to the list item
-                li.appendChild(mealInfo);
-                li.appendChild(mealLink);
-            } else {
-                // Append just the meal info if no link is available
-                li.appendChild(mealInfo);
-            }
-        
-            // Append the list item to the weekly meals list
-            weeklyMealsList.appendChild(li);
-        });
-        
 
+            if (meal === "Office day") {
+                // Handle Office Day entries
+                const mealInfo = document.createElement("div");
+                mealInfo.textContent = `${daysOfWeek[i]}: Office day`;
+                li.appendChild(mealInfo);
+            } else {
+                // Increment timesUsed for the meal
+                await incrementTimesUsed(meal.id);
+
+                // Add day and meal name
+                const mealInfo = document.createElement("div");
+                mealInfo.textContent = `${daysOfWeek[i]}: ${meal.name} (${meal.ingredients.join(", ")})`;
+                li.appendChild(mealInfo);
+                const mealDifficulty = document.createElement("div");
+                mealDifficulty.textContent = `Difficulty ${meal.difficulty}`;
+                li.appendChild(mealDifficulty);
+                const timesUsedDisplay = document.createElement("div");
+                timesUsedDisplay.textContent = `Times used ${meal.timesUsed}`;
+                li.appendChild(timesUsedDisplay);
+
+                // Add hyperlink if a valid link exists
+                if (meal.link && meal.link !== "None") {
+                    const mealLink = document.createElement("a");
+                    mealLink.classList.add("meal-link");
+                    mealLink.textContent = "Link to recipe";
+                    mealLink.href = meal.link;
+                    mealLink.target = "_blank";
+                    mealLink.rel = "noopener noreferrer";
+
+                    li.appendChild(mealLink);
+                }
+            }
+
+            weeklyMealsList.appendChild(li);
+        }
     } catch (error) {
         console.error("Error generating weekly meals:", error);
         alert("Failed to generate weekly meals. Check console for details.");
     }
 }
+
+
+
+//Function to increment timesUsed for meal
+export async function incrementTimesUsed(mealId) {
+    const mealRef = ref(db, `meals/${mealId}/timesUsed`);
+    try {
+        const snapshot = await get(mealRef);
+        const currentCount = snapshot.exists() ? snapshot.val() : 0;
+        await set(mealRef, currentCount + 1);
+        console.log(`Incremented timesUsed for meal ${mealId}`);
+    } catch (error) {
+        console.error(`Failed to increment timesUsed for meal ${mealId}:`, error);
+    }
+}
+
+//Function to include office days
+document.addEventListener("DOMContentLoaded", () => {
+    const checkbox = document.getElementById('includeOfficeDays');
+    if (checkbox) {
+        checkbox.addEventListener('change', toggleInputField);
+    }
+});
+
+function toggleInputField() {
+    const checkbox = document.getElementById('includeOfficeDays');
+    const inputField = document.getElementById('officeDays');
+    if (checkbox.checked) {
+        inputField.style.display = 'block'; // Show the input field
+    } else {
+        inputField.style.display = 'none'; // Hide the input field
+    }
+}
+
 
 // Automatically monitor authentication state
 monitorAuthState();

@@ -19,6 +19,13 @@
             <button onclick="window.location.href='addNewMeal.html'">Add New Meal</button>
             <button onclick="window.location.href='allMeals.html'">See All Meals</button>
             <button onclick="generateWeeklyMeals()">Generate Weekly Meals</button>
+            <label>
+                <input type="checkbox" id="includeOfficeDays">
+                Include Office Days
+            </label>
+            <div id="officeDays" style="display: none; margin-top: 10px;">
+                <input type="number" id="officeDaysInput" placeholder="Enter office days number" min="0" max="5">
+            </div>
         </div>
 
     <form id="loginForm" onsubmit="login(event)" class="card" style="display: none;">
@@ -34,7 +41,7 @@
     <ul id="weeklyMeals" class="meal-list" style="display: none;"></ul>
 
     <footer>
-        &copy; 2024 Weekly Meals App
+        &copy; 2025 Weekly Meals App
     </footer>
 
     <script type="module">

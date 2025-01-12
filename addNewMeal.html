@@ -21,12 +21,22 @@
         <input type="text" id="ingredients" name="ingredients" required>
         <label for="link">Link to recipe</label>
         <input type="text" id="link" name="link">
+        <label for="difficulty">Choose difficulty</label>
+        <select name="cars" id="difficulty">
+            <option value="easy">Easy</option>
+            <option value="medium">Medium</option>
+            <option value="hard">Hard</option>
+        </select>
         <button type="submit">Add Meal</button>
     </form>
 
-    <div class="button-container">
-        <button onclick="window.location.href='index.html'">Back to Main</button>
+    <div class="navButtonContainer">
+        <button id="backButton" class="navButton" onclick="window.location.href='index.html'">Back to Main</button>
     </div>
+
+    <footer>
+        &copy; 2025 Weekly Meals App
+    </footer>
 
     <script type="module">
         import { monitorAuthState, showElement, updateAuthStatus } from './FirebaseScripts.js';

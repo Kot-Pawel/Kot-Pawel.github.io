@@ -16,7 +16,13 @@
 
     <ul id="meals" class="meal-list" style="display: none;">Loading meals...</ul>
 
-    <button onclick="window.location.href='index.html'">Back to Main</button>
+    <div class="navButtonContainer">
+        <button id="backButton" class="navButton" onclick="window.location.href='index.html'">Back to Main</button>
+    </div>
+
+    <footer>
+        &copy; 2025 Weekly Meals App
+    </footer>
 
     <script type="module">
         import { monitorAuthState, showElement, updateAuthStatus, loadMeals, deleteMeal } from './FirebaseScripts.js';
