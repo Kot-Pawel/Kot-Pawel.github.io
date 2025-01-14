@@ -15,22 +15,20 @@ Allow authenticated users to only write data.
 
 ## Spin up server for local testing: 
 
-1. Open gitbash
-2. Go to folder with the project
-3. Execute: $ python -m http.server 8000
-4. Open http://localhost:8000/index.html
+- Open gitbash
+- Go to folder with the project
+- Execute: $ python -m http.server 8000
+- Open http://localhost:8000/index.html
 
 ## Pro tips:
 
-* Use F12 console to inspect HTML items and see which style is affecting an object
+Use F12 console to inspect HTML items and see which style is affecting an object
 
-* Firebase config retrieval info:
+Firebase config retrieval info:
+- Go to the Firebase Console:
+- Open your Firebase project in the Firebase Console.
 
-Go to the Firebase Console:
-
-Open your Firebase project in the Firebase Console.
 Add a Web App:
-
-Click on Project Settings (gear icon in the left menu).
-In the "General" tab, scroll to "Your Apps" and click Add App > Web.
-Give your app a name and register it.
+- Click on Project Settings (gear icon in the left menu).
+- In the "General" tab, scroll to "Your Apps" and click Add App > Web.
+- Give your app a name and register it.
