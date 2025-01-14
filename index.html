@@ -8,18 +8,21 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <header>
-        <h1>Weekly Meals App</h1>
-        <div id="authStatus">Logged in as: <span id="userEmail">Checking...</span></div>
-    </header>
+    <div class="header">
+        <a href="index.html" class="logo">Weekly meals app</a>
+        <div id="authStatus" class="header-right">
+            Logged in as: <span id="userEmail" class="active">Checking...</span>
+            <a href="#about">About</a>
+        </div>
+    </div>
 
     <div class="container">
         <div class="card" id="loggedInActions" style="display: none;">
             <h2>Actions</h2>
-            <button onclick="window.location.href='userGuide.html'">User Guide</button>
-            <button onclick="window.location.href='addNewMeal.html'">Add New Meal</button>
-            <button onclick="window.location.href='allMeals.html'">See All Meals</button>
-            <button onclick="generateWeeklyMeals()">Generate Weekly Meals</button>
+            <button onclick="window.location.href='userGuide.html'" class="menuButton">User Guide</button>
+            <button onclick="window.location.href='addNewMeal.html'" class="menuButton">Add New Meal</button>
+            <button onclick="window.location.href='allMeals.html'" class="menuButton">See All Meals</button>
+            <button onclick="generateWeeklyMeals()" class="menuButton">Generate Weekly Meals</button>
             <label>
                 <input type="checkbox" id="includeOfficeDays">
                 Include Office Days

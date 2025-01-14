@@ -37,7 +37,7 @@ export function updateAuthStatus(user) {
     const authStatus = document.getElementById("authStatus");
     if (authStatus) {
         if (user) {
-            authStatus.innerHTML = `Logged in as: ${user.email} <button id="logoutButton" class = "navButton">Logout</button>`;
+            authStatus.innerHTML = `Logged in as: ${user.email} <button id="logoutButton" class = "logOutButton">Logout</button>`;
             const logoutButton = document.getElementById("logoutButton");
             logoutButton.addEventListener("click", async () => {
                 try {

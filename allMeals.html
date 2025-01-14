@@ -9,10 +9,12 @@
     <script type="module" src="FirebaseScripts.js"></script>
 </head>
 <body>
-    <header>
-        <h1>Weekly Meals App</h1>
-        <div id="authStatus">Logged in as: <span id="userEmail">Checking...</span></div>  
-    </header>
+    <div class="header">
+        <a href="index.html" class="logo">Weekly meals app</a>
+        <div id="authStatus" class="header-right">
+            Logged in as: <span id="userEmail" class="active">Checking...</span>
+        </div>
+    </div>
 
     <ul id="meals" class="meal-list" style="display: none;">Loading meals...</ul>
 
