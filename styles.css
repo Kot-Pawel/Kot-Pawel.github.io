@@ -287,7 +287,7 @@ label {
 .form-container button {
     width: 100%;
     padding: 10px;
-    background-color: #6200ea;
+    background-color: #00796b;
     color: white;
     border: none;
     border-radius: 5px;
@@ -296,7 +296,7 @@ label {
 }
 
 .form-container button:hover {
-    background-color: #4500b5;
+    background-color: #004d40;
 }
 
 .card {
