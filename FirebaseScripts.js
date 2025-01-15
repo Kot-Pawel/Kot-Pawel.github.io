@@ -37,7 +37,7 @@ export function updateAuthStatus(user) {
     const authStatus = document.getElementById("authStatus");
     if (authStatus) {
         if (user) {
-            authStatus.innerHTML = `Logged in as: ${user.email} <button id="logoutButton" class = "logOutButton">Logout</button>`;
+            authStatus.innerHTML = `<button id="logoutButton" class = "logOutButton">Logout</button>`;
             const logoutButton = document.getElementById("logoutButton");
             logoutButton.addEventListener("click", async () => {
                 try {
@@ -153,7 +153,7 @@ export function loadMeals() {
                 // Delete button
                 const deleteButton = document.createElement("button");
                 deleteButton.classList.add("delete-button");
-                deleteButton.innerHTML = '<i class="fas fa-trash"></i>'; // Add trash icon
+                deleteButton.innerHTML = '<img src="https://cdn-icons-png.freepik.com/512/8962/8962643.png" width=50% height=50%>'; // Add trash icon
                 deleteButton.addEventListener("click", () => {
                     if (confirm(`Are you sure you want to delete "${meal.name}"?`)) {
                         deleteMeal(mealId); // Call deleteMeal with the specific meal ID
