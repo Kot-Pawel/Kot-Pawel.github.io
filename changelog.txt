@@ -2,3 +2,4 @@
 
 Fixed a problem where you had to check "Include office days" even if you intended 0.
 Fetch and display meal function refactored
+Better UI for all meal display

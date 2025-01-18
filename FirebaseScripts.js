@@ -137,18 +137,22 @@ export function loadMeals() {
 
             // Generate HTML for meals list
             const mealsHTML = sortedMeals.map(([mealId, meal]) => `
-                <li class="meal-item">
-                    <div class="meal-name">${meal.name}</div>
-                    <div class="meal-ingredients">Ingredients: ${meal.ingredients.join(", ")}</div>
-                    ${meal.link && meal.link !== "none" ? `
-                        <a class="meal-link" href="${meal.link}" target="_blank" rel="noopener noreferrer">Link to recipe</a>
-                    ` : ""}
-                    <div>Times used: ${meal.timesUsed || 0}</div>
-                    <div>Difficulty: ${meal.difficulty || "n/a"}</div>
+            <li class="meal-item">
+                <div class="meal-content">
+                    <div>
+                        <div class="meal-name">${meal.name}</div>
+                        <div class="meal-ingredients">Ingredients: ${meal.ingredients.join(", ")}</div>
+                        ${meal.link && meal.link !== "none" ? `
+                            <a class="meal-link" href="${meal.link}" target="_blank" rel="noopener noreferrer">Link to recipe</a>
+                        ` : ""}
+                        <div>Times used: ${meal.timesUsed || 0}</div>
+                        <div>Difficulty: ${meal.difficulty || "n/a"}</div>
+                    </div>
                     <button class="delete-button" onclick="deleteMeal('${mealId}')">
-                        <img src="https://cdn-icons-png.freepik.com/512/8962/8962643.png" width="50%" height="50%">
+                        <img src="https://cdn-icons-png.freepik.com/512/8962/8962643.png">
                     </button>
-                </li>
+                </div>
+            </li>
             `).join("");
 
             mealsList.innerHTML = mealsHTML;
