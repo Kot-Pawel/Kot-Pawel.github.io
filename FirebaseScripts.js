@@ -244,8 +244,12 @@ export async function generateWeeklyMeals() {
         const officeDaysInput = document.getElementById("officeDaysInput");
         const includeOfficeDaysCheckbox = document.getElementById("includeOfficeDays");
         const isOfficeDaysIncluded = includeOfficeDaysCheckbox && includeOfficeDaysCheckbox.checked;
-        const officeDaysCount = officeDaysInput ? parseInt(officeDaysInput.value, 10) : 0;
+        var officeDaysCount = officeDaysInput ? parseInt(officeDaysInput.value, 10) : 0;
 
+        if (isNaN(officeDaysCount)) {
+               officeDaysCount = 0;
+        }
+    
         if (isOfficeDaysIncluded && (isNaN(officeDaysCount) || officeDaysCount < 0 || officeDaysCount > 5)) {
             alert("Please enter a valid number of office days (0-5).");
             return;
@@ -254,6 +258,7 @@ export async function generateWeeklyMeals() {
         const daysOfWeek = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
         const officeDays = Array(officeDaysCount).fill("Office day");
         const remainingDays = daysOfWeek.length - officeDaysCount;
+       
 
         // Group meals by difficulty and sort by timesUsed (ascending)
         const hardMeals = mealEntries

@@ -1,0 +1,1 @@
+Fixed a problem where you had to check "Include office days" even if you intended 0.
