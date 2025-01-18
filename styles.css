@@ -201,14 +201,17 @@ button:hover {
     color: #b0bec5; /* Lighter gray for ingredients */
 }
 
-.meal-list .delete-button {
+.delete-button {
     background: none;
     border: none;
     cursor: pointer;
-    padding: 0;
-    margin-top: 10px;
-    width: 20%;
-    height: 20%;
+    padding: 5px;
+    align-self: flex-start; /* Align button to the top of the container */
+}
+
+.delete-button img {
+    width: 36px; /* Adjust size */
+    height: 36px;
 }
 
 .meal-list .delete-button i {
@@ -229,6 +232,12 @@ button:hover {
     display: inline-block; /* Ensures spacing works with margin */
 }
 
+.meal-ingredients,
+.meal-link,
+div {
+    margin-bottom: 5px;
+}
+
 .meal-link:hover {
     color: #1565c0; /* Darker blue on hover */
     text-decoration: none;
@@ -240,6 +249,17 @@ label {
     gap: 5px; /* Adds space between the checkbox and the label */
 }
 
+.meal-item {
+    padding: 10px;
+    margin-bottom: 10px;
+    display: block;
+}
+
+.meal-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 
 /**Forms**/
 .container {

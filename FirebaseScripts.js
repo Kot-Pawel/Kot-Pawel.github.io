@@ -110,18 +110,17 @@ export async function addMeal(event) {
     }
 }
 
-
 // Fetch and display meals from Firebase
 export function loadMeals() {
     const mealsList = document.getElementById("meals");
-    const user = auth.currentUser; // Get the currently logged-in user
+    const user = auth.currentUser;
 
     if (!user) {
         alert("You must be logged in to view meals.");
         return;
     }
 
-    const mealsRef = ref(db, `meals/${user.uid}`); // Reference meals under the user's UID
+    const mealsRef = ref(db, `meals/${user.uid}`);
 
     console.log("Fetching meals from Firebase...");
     onValue(mealsRef, (snapshot) => {
@@ -136,59 +135,27 @@ export function loadMeals() {
                 a.name.localeCompare(b.name)
             );
 
-            for (const [mealId, meal] of sortedMeals) {
-                const li = document.createElement("li");
-                li.classList.add("meal-item");
+            // Generate HTML for meals list
+            const mealsHTML = sortedMeals.map(([mealId, meal]) => `
+            <li class="meal-item">
+                <div class="meal-content">
+                    <div>
+                        <div class="meal-name">${meal.name}</div>
+                        <div class="meal-ingredients">Ingredients: ${meal.ingredients.join(", ")}</div>
+                        ${meal.link && meal.link !== "none" ? `
+                            <a class="meal-link" href="${meal.link}" target="_blank" rel="noopener noreferrer">Link to recipe</a>
+                        ` : ""}
+                        <div>Times used: ${meal.timesUsed || 0}</div>
+                        <div>Difficulty: ${meal.difficulty || "n/a"}</div>
+                    </div>
+                    <button class="delete-button" onclick="deleteMeal('${mealId}')">
+                        <img src="https://cdn-icons-png.freepik.com/512/8962/8962643.png">
+                    </button>
+                </div>
+            </li>
+            `).join("");
 
-                // Meal name
-                const mealName = document.createElement("div");
-                mealName.classList.add("meal-name");
-                mealName.textContent = meal.name;
-
-                // Meal ingredients
-                const mealIngredients = document.createElement("div");
-                mealIngredients.classList.add("meal-ingredients");
-                mealIngredients.textContent = `Ingredients: ${meal.ingredients.join(", ")}`;
-
-                // Delete button
-                const deleteButton = document.createElement("button");
-                deleteButton.classList.add("delete-button");
-                deleteButton.innerHTML = '<img src="https://cdn-icons-png.freepik.com/512/8962/8962643.png" width=50% height=50%>'; // Add trash icon
-                deleteButton.addEventListener("click", () => {
-                    if (confirm(`Are you sure you want to delete "${meal.name}"?`)) {
-                        deleteMeal(mealId); // Call deleteMeal with the specific meal ID
-                    }
-                });
-
-                // Append elements to list item
-                li.appendChild(mealName);
-                li.appendChild(mealIngredients);
-
-                // Recipe link
-                if (meal.link && meal.link !== "none") {
-                    const mealLink = document.createElement("a"); // Create an anchor element
-                    mealLink.classList.add("meal-link"); // Add a CSS class for styling
-                    mealLink.textContent = "Link to recipe"; // Set the display text
-                    mealLink.href = meal.link; // Set the URL
-                    mealLink.target = "_blank"; // Open the link in a new tab
-                    mealLink.rel = "noopener noreferrer"; // Improve security for external links
-                    li.appendChild(mealLink);
-                }
-
-                // Add timesUsed to the meal list item
-                const timesUsed = document.createElement("div");
-                timesUsed.textContent = `Times used: ${meal.timesUsed || 0}`;
-                li.appendChild(timesUsed);
-
-                const difficulty = document.createElement("div");
-                difficulty.textContent = `Difficulty: ${meal.difficulty || "n/a"}`;
-                li.appendChild(difficulty);
-
-                li.appendChild(deleteButton);
-
-                // Append list item to meals list
-                mealsList.appendChild(li);
-            }
+            mealsList.innerHTML = mealsHTML;
         } else {
             console.log("No meals found.");
             mealsList.innerHTML = "<li>No meals available</li>";
@@ -244,8 +211,12 @@ export async function generateWeeklyMeals() {
         const officeDaysInput = document.getElementById("officeDaysInput");
         const includeOfficeDaysCheckbox = document.getElementById("includeOfficeDays");
         const isOfficeDaysIncluded = includeOfficeDaysCheckbox && includeOfficeDaysCheckbox.checked;
-        const officeDaysCount = officeDaysInput ? parseInt(officeDaysInput.value, 10) : 0;
+        var officeDaysCount = officeDaysInput ? parseInt(officeDaysInput.value, 10) : 0;
 
+        if (isNaN(officeDaysCount)) {
+               officeDaysCount = 0;
+        }
+    
         if (isOfficeDaysIncluded && (isNaN(officeDaysCount) || officeDaysCount < 0 || officeDaysCount > 5)) {
             alert("Please enter a valid number of office days (0-5).");
             return;
@@ -254,6 +225,7 @@ export async function generateWeeklyMeals() {
         const daysOfWeek = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
         const officeDays = Array(officeDaysCount).fill("Office day");
         const remainingDays = daysOfWeek.length - officeDaysCount;
+       
 
         // Group meals by difficulty and sort by timesUsed (ascending)
         const hardMeals = mealEntries
@@ -329,7 +301,6 @@ export async function generateWeeklyMeals() {
     }
 }
 
-
 //Function to increment timesUsed for meal
 export async function incrementTimesUsed(mealId) {
     const user = auth.currentUser; // Get the currently logged-in user
@@ -350,7 +321,6 @@ export async function incrementTimesUsed(mealId) {
         console.error(`Failed to increment timesUsed for meal ${mealId}:`, error);
     }
 }
-
 
 //Function to include office days
 document.addEventListener("DOMContentLoaded", () => {
